@@ -35,16 +35,17 @@ class CasaCulturaController extends Controller
             'horario_inicio' => 'required|date_format:H:i',
             'horario_fin' => 'required|date_format:H:i|after:horario_inicio',
             'persona_responsable' => 'required|string|max:255',
-            'persona_responsable_telefono' => 'required|string|max:20',
+            'persona_responsable_telefono' => 'required|string|size:10',
             'firma_contrato_recepcion' => 'boolean',
             'reservado' => 'boolean',
-            'estado' => 'boolean',
+            'estado' => 'required|string|in:APROVADO,RECHAZADO',
             'convenio_firmado' => 'boolean',
             'entrega_oficio' => 'boolean',
-            'evento' => 'required|string|in:gratuito,pagado',
+            'evento' => 'required|string|in:GRATUITO,PAGADO',
             'lugar_id' => 'required|exists:localizaciones,id',
-            'categoria_id' => 'required|exists:categorias,id',
-            'post_evento_id' => 'nullable|exists:post_eventos,id'
+            'categoria_id' => 'required|exists:categorias,id'
+            // CAMBIADO PARA NO ENVIAR LA ID DE POST EVENTO
+            //'post_evento_id' => 'nullable|exists:post_eventos,id'
         ]);
 
         if ($validator->fails()) {
@@ -96,16 +97,17 @@ class CasaCulturaController extends Controller
             'horario_inicio' => 'required|date_format:H:i',
             'horario_fin' => 'required|date_format:H:i|after:horario_inicio',
             'persona_responsable' => 'required|string|max:255',
-            'persona_responsable_telefono' => 'required|string|max:20',
+            'persona_responsable_telefono' => 'required|string|size:10',
             'firma_contrato_recepcion' => 'boolean',
             'reservado' => 'boolean',
-            'estado' => 'boolean',
+            'estado' => 'required|string|in:APROVADO,RECHAZADO',
             'convenio_firmado' => 'boolean',
             'entrega_oficio' => 'boolean',
-            'evento' => 'required|string|in:gratuito,pagado',
+            'evento' => 'required|string|in:GRATUITO,PAGADO',
             'lugar_id' => 'required|exists:localizaciones,id',
             'categoria_id' => 'required|exists:categorias,id',
-            'post_evento_id' => 'nullable|exists:post_eventos,id'
+            // CAMBIADO PARA NO ENVIAR LA ID DE POST EVENTO
+            //'post_evento_id' => 'nullable|exists:post_eventos,id'
         ]);
 
         if ($validator->fails()) {

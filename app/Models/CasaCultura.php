@@ -8,6 +8,13 @@ use Illuminate\Database\Eloquent\Model;
 class CasaCultura extends Model
 {
     use HasFactory;
+    // Constantes para estado
+    public const ESTADO_APROBADO = 'APROVADO';
+    public const ESTADO_RECHAZADO = 'RECHAZADO';
+
+    // Constantes para tipo de evento
+    public const EVENTO_GRATUITO = 'GRATUITO';
+    public const EVENTO_PAGADO = 'PAGADO';
 
     protected $table = 'casa_cultura';
 
@@ -29,7 +36,6 @@ class CasaCultura extends Model
     protected $casts = [
         'firma_contrato_recepcion' => 'boolean',
         'reservado' => 'boolean',
-        'estado' => 'boolean',
         'convenio_firmado' => 'boolean',
         'entrega_oficio' => 'boolean',
         'fecha' => 'date',

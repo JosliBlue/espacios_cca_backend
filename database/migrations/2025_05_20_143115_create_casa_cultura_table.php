@@ -20,17 +20,17 @@ return new class extends Migration
             $table->time('horario_inicio');
             $table->time('horario_fin');
             $table->string('persona_responsable');
-            $table->string('persona_responsable_telefono');
+            $table->char('persona_responsable_telefono', 10);
             $table->boolean('firma_contrato_recepcion');
             $table->boolean('reservado');
-            $table->boolean('estado')->comment('aprovado/negado');
+            $table->enum('estado', ['APROVADO', 'RECHAZADO']);
             $table->boolean('convenio_firmado');
             $table->boolean('entrega_oficio');
-            $table->boolean('evento')->comment('gratuito/pagado');
+            $table->enum('evento', ['GRATUITO', 'PAGADO']);
             $table->foreignId('categoria')->constrained('categorias')
                 ->onDelete('restrict')->onUpdate('cascade');
             $table->foreignId('post_evento')->constrained('post_eventos')
-                ->onDelete('restrict')->onUpdate('cascade');
+                ->onDelete('restrict')->onUpdate('cascade')->nullable();
             $table->timestamps();
         });
     }
