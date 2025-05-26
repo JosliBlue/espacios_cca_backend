@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\CasaCultura;
+use App\Models\PostEvento;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -42,8 +43,8 @@ class CasaCulturaController extends Controller
             'convenio_firmado' => 'boolean',
             'entrega_oficio' => 'boolean',
             'evento' => 'required|string|in:GRATUITO,PAGADO',
-            'lugar_id' => 'required|exists:localizaciones,id',
-            'categoria_id' => 'required|exists:categorias,id'
+            'lugar' => 'required|exists:localizaciones,id',
+            'categoria' => 'required|exists:categorias,id'
             // CAMBIADO PARA NO ENVIAR LA ID DE POST EVENTO
             //'post_evento_id' => 'nullable|exists:post_eventos,id'
         ]);
@@ -56,7 +57,18 @@ class CasaCulturaController extends Controller
         }
 
         try {
-            $casaCultura = CasaCultura::create($request->all());
+            // Crear primero el post evento con valores en 0
+            $postEvento = PostEvento::create([
+                'infantes_asistido' => 0,
+                'jovenes_asistidos' => 0,
+                'adultos_asistidos' => 0
+            ]);
+
+            // Agregar el id del post evento a los datos de la casa de cultura
+            $datosRequest = $request->all();
+            $datosRequest['post_evento'] = $postEvento->id;
+
+            $casaCultura = CasaCultura::create($datosRequest);
 
             return response()->json([
                 'estado' => true,
@@ -104,10 +116,10 @@ class CasaCulturaController extends Controller
             'convenio_firmado' => 'boolean',
             'entrega_oficio' => 'boolean',
             'evento' => 'required|string|in:GRATUITO,PAGADO',
-            'lugar_id' => 'required|exists:localizaciones,id',
-            'categoria_id' => 'required|exists:categorias,id',
+            'lugar' => 'required|exists:localizaciones,id',
+            'categoria' => 'required|exists:categorias,id'
             // CAMBIADO PARA NO ENVIAR LA ID DE POST EVENTO
-            //'post_evento_id' => 'nullable|exists:post_eventos,id'
+            //'post_evento' => 'nullable|exists:post_eventos,id'
         ]);
 
         if ($validator->fails()) {

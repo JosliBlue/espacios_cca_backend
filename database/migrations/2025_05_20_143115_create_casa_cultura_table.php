@@ -30,7 +30,7 @@ return new class extends Migration
             $table->foreignId('categoria')->constrained('categorias')
                 ->onDelete('restrict')->onUpdate('cascade');
             $table->foreignId('post_evento')->constrained('post_eventos')
-                ->onDelete('restrict')->onUpdate('cascade')->nullable();
+                ->onDelete('restrict')->onUpdate('cascade');
             $table->timestamps();
         });
     }

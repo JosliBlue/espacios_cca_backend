@@ -30,7 +30,10 @@ class CasaCultura extends Model
         'estado',
         'convenio_firmado',
         'entrega_oficio',
-        'evento'
+        'evento',
+        'lugar',
+        'categoria',
+        'post_evento'
     ];
 
     protected $casts = [
