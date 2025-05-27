@@ -8,15 +8,17 @@ use Illuminate\Database\Eloquent\Model;
 class CasaCultura extends Model
 {
     use HasFactory;
+    protected $table = 'casa_cultura';
+    public $timestamps = false;
     // Constantes para estado
-    public const ESTADO_APROBADO = 'APROVADO';
-    public const ESTADO_RECHAZADO = 'RECHAZADO';
+    public const ESTADO_APROBADO = 'Aprobado';
+    public const ESTADO_RECHAZADO = 'Rechazado';
+    public const ESTADO_PENDIENTE = 'Pendiente';
 
     // Constantes para tipo de evento
-    public const EVENTO_GRATUITO = 'GRATUITO';
-    public const EVENTO_PAGADO = 'PAGADO';
+    public const EVENTO_GRATUITO = 'Gratuito';
+    public const EVENTO_PAGADO = 'Pagado';
 
-    protected $table = 'casa_cultura';
 
     protected $fillable = [
         'nombre',

@@ -13,7 +13,9 @@ class CasaCulturaController extends Controller
     public function index(): JsonResponse
     {
         try {
-            $casasCultura = CasaCultura::with(['lugar', 'categoria', 'postEvento'])->get();
+            $casasCultura = CasaCultura::with(['lugar', 'categoria', 'postEvento'])
+                ->orderBy('fecha', 'asc')
+                ->get();
 
             return response()->json([
                 'estado' => true,
@@ -39,10 +41,10 @@ class CasaCulturaController extends Controller
             'persona_responsable_telefono' => 'required|string|size:10',
             'firma_contrato_recepcion' => 'boolean',
             'reservado' => 'boolean',
-            'estado' => 'required|string|in:APROVADO,RECHAZADO',
+            'estado' => 'required|string|in:Aprobado,Rechazado,Pendiente',
             'convenio_firmado' => 'boolean',
             'entrega_oficio' => 'boolean',
-            'evento' => 'required|string|in:GRATUITO,PAGADO',
+            'evento' => 'required|string|in:Gratuito,Pagado',
             'lugar' => 'required|exists:localizaciones,id',
             'categoria' => 'required|exists:categorias,id'
             // CAMBIADO PARA NO ENVIAR LA ID DE POST EVENTO
@@ -112,10 +114,10 @@ class CasaCulturaController extends Controller
             'persona_responsable_telefono' => 'required|string|size:10',
             'firma_contrato_recepcion' => 'boolean',
             'reservado' => 'boolean',
-            'estado' => 'required|string|in:APROVADO,RECHAZADO',
+            'estado' => 'required|string|in:Aprobado,Rechazado,Pendiente',
             'convenio_firmado' => 'boolean',
             'entrega_oficio' => 'boolean',
-            'evento' => 'required|string|in:GRATUITO,PAGADO',
+            'evento' => 'required|string|in:Gratuito,Pagado',
             'lugar' => 'required|exists:localizaciones,id',
             'categoria' => 'required|exists:categorias,id'
             // CAMBIADO PARA NO ENVIAR LA ID DE POST EVENTO

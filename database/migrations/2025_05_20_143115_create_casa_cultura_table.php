@@ -23,15 +23,14 @@ return new class extends Migration
             $table->char('persona_responsable_telefono', 10);
             $table->boolean('firma_contrato_recepcion');
             $table->boolean('reservado');
-            $table->enum('estado', ['APROVADO', 'RECHAZADO']);
+            $table->enum('estado', ['Aprobado', 'Rechazado', 'Pendiente']);
             $table->boolean('convenio_firmado');
             $table->boolean('entrega_oficio');
-            $table->enum('evento', ['GRATUITO', 'PAGADO']);
+            $table->enum('evento', ['Gratuito', 'Pagado']);
             $table->foreignId('categoria')->constrained('categorias')
                 ->onDelete('restrict')->onUpdate('cascade');
             $table->foreignId('post_evento')->constrained('post_eventos')
                 ->onDelete('restrict')->onUpdate('cascade');
-            $table->timestamps();
         });
     }
 
