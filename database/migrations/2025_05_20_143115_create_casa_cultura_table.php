@@ -11,26 +11,27 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('casa_cultura', function (Blueprint $table) {
+        Schema::create('cultural_centers', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('lugar')->constrained('localizaciones')
+            $table->foreignId('location_id')->constrained('locations')
                 ->onDelete('restrict')->onUpdate('cascade');
-            $table->string('nombre');
-            $table->date('fecha');
-            $table->time('horario_inicio');
-            $table->time('horario_fin');
-            $table->string('persona_responsable');
-            $table->char('persona_responsable_telefono', 10);
-            $table->boolean('firma_contrato_recepcion');
-            $table->boolean('reservado');
-            $table->enum('estado', ['Aprobado', 'Rechazado', 'Pendiente']);
-            $table->boolean('convenio_firmado');
-            $table->boolean('entrega_oficio');
-            $table->enum('evento', ['Gratuito', 'Pagado']);
-            $table->foreignId('categoria')->constrained('categorias')
+            $table->string('name');
+            $table->date('date');
+            $table->time('start_time');
+            $table->time('end_time');
+            $table->string('responsible_person');
+            $table->char('responsible_person_phone', 10);
+            $table->boolean('contract_reception_signed');
+            $table->boolean('reserved');
+            $table->enum('status', ['Approved', 'Rejected', 'Pending']);
+            $table->boolean('agreement_signed');
+            $table->boolean('official_document_delivered');
+            $table->enum('event_type', ['Free', 'Paid']);
+            $table->foreignId('category_id')->constrained('categories')
                 ->onDelete('restrict')->onUpdate('cascade');
-            $table->foreignId('post_evento')->constrained('post_eventos')
+            $table->foreignId('post_event_id')->constrained('post_events')
                 ->onDelete('restrict')->onUpdate('cascade');
+            $table->timestamps();
         });
     }
 
@@ -39,6 +40,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('casa_cultura');
+        Schema::dropIfExists('cultural_centers');
     }
 };

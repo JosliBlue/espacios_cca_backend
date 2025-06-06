@@ -4,13 +4,13 @@ use App\Http\Middleware\IsUserAuth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
-use App\Http\Controllers\CategoriaController;
-use App\Http\Controllers\LocalizacionController;
+use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\LocationController;
 use App\Http\Controllers\InstructorController;
-use App\Http\Controllers\TallerController;
-use App\Http\Controllers\PostEventoController;
-use App\Http\Controllers\CasaCulturaController;
-use App\Http\Controllers\EnsayoController;
+use App\Http\Controllers\WorkshopController;
+use App\Http\Controllers\EventPostController;
+use App\Http\Controllers\CulturalCenterController;
+use App\Http\Controllers\RehearsalController;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,37 +23,37 @@ use App\Http\Controllers\EnsayoController;
 |
 */
 
-// Autenticación pública
-Route::post('/registro', [AuthController::class, 'register']);
+// Public Authentication
+Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
 
-// Rutas protegidas con autenticación JWT
+// Protected routes with JWT authentication
 Route::middleware([IsUserAuth::class])->group(function () {
-    // Autenticación
-    Route::get('/perfil', [AuthController::class, 'perfil']);
-    Route::post('/actualizar_token', [AuthController::class, 'actualizar_token']);
+    // Authentication
+    Route::get('/profile', [AuthController::class, 'profile']);
+    Route::post('/refresh-token', [AuthController::class, 'refresh_token']);
     Route::post('/logout', [AuthController::class, 'logout']);
 
-    // Categorías
-    Route::prefix('categorias')->group(function () {
-        Route::get('/', [CategoriaController::class, 'index']);
-        Route::post('/', [CategoriaController::class, 'store']);
-        Route::get('/{id}', [CategoriaController::class, 'show']);
-        Route::put('/{id}', [CategoriaController::class, 'update']);
-        Route::delete('/{id}', [CategoriaController::class, 'destroy']);
+    // Categories
+    Route::prefix('categories')->group(function () {
+        Route::get('/', [CategoryController::class, 'index']);
+        Route::post('/', [CategoryController::class, 'store']);
+        Route::get('/{id}', [CategoryController::class, 'show']);
+        Route::put('/{id}', [CategoryController::class, 'update']);
+        Route::delete('/{id}', [CategoryController::class, 'destroy']);
     });
 
-    // Localizaciones
-    Route::prefix('localizaciones')->group(function () {
-        Route::get('/', [LocalizacionController::class, 'index']);
-        Route::post('/', [LocalizacionController::class, 'store']);
-        Route::get('/{id}', [LocalizacionController::class, 'show']);
-        Route::put('/{id}', [LocalizacionController::class, 'update']);
-        Route::delete('/{id}', [LocalizacionController::class, 'destroy']);
+    // Locations
+    Route::prefix('locations')->group(function () {
+        Route::get('/', [LocationController::class, 'index']);
+        Route::post('/', [LocationController::class, 'store']);
+        Route::get('/{id}', [LocationController::class, 'show']);
+        Route::put('/{id}', [LocationController::class, 'update']);
+        Route::delete('/{id}', [LocationController::class, 'destroy']);
     });
 
-    // Instructores
-    Route::prefix('instructores')->group(function () {
+    // Instructors
+    Route::prefix('instructors')->group(function () {
         Route::get('/', [InstructorController::class, 'index']);
         Route::post('/', [InstructorController::class, 'store']);
         Route::get('/{id}', [InstructorController::class, 'show']);
@@ -61,42 +61,42 @@ Route::middleware([IsUserAuth::class])->group(function () {
         Route::delete('/{id}', [InstructorController::class, 'destroy']);
     });
 
-    // Talleres
-    Route::prefix('talleres')->group(function () {
-        Route::get('/', [TallerController::class, 'index']);
-        Route::post('/', [TallerController::class, 'store']);
-        Route::get('/{id}', [TallerController::class, 'show']);
-        Route::put('/{id}', [TallerController::class, 'update']);
-        Route::delete('/{id}', [TallerController::class, 'destroy']);
-        Route::post('/buscar', [TallerController::class, 'buscar']);
+    // Workshops
+    Route::prefix('workshops')->group(function () {
+        Route::get('/', [WorkshopController::class, 'index']);
+        Route::post('/', [WorkshopController::class, 'store']);
+        Route::get('/{id}', [WorkshopController::class, 'show']);
+        Route::put('/{id}', [WorkshopController::class, 'update']);
+        Route::delete('/{id}', [WorkshopController::class, 'destroy']);
+        Route::post('/search', [WorkshopController::class, 'search']);
     });
 
-    // Post Eventos
-    Route::prefix('post-eventos')->group(function () {
-        Route::get('/', [PostEventoController::class, 'index']);
-        Route::post('/', [PostEventoController::class, 'store']);
-        Route::get('/{id}', [PostEventoController::class, 'show']);
-        Route::put('/{id}', [PostEventoController::class, 'update']);
-        Route::delete('/{id}', [PostEventoController::class, 'destroy']);
+    // Event Posts
+    Route::prefix('event-posts')->group(function () {
+        Route::get('/', [EventPostController::class, 'index']);
+        Route::post('/', [EventPostController::class, 'store']);
+        Route::get('/{id}', [EventPostController::class, 'show']);
+        Route::put('/{id}', [EventPostController::class, 'update']);
+        Route::delete('/{id}', [EventPostController::class, 'destroy']);
     });
 
-    // Casas de Cultura
-    Route::prefix('casas-cultura')->group(function () {
-        Route::get('/', [CasaCulturaController::class, 'index']);
-        Route::post('/', [CasaCulturaController::class, 'store']);
-        Route::get('/{id}', [CasaCulturaController::class, 'show']);
-        Route::put('/{id}', [CasaCulturaController::class, 'update']);
-        Route::delete('/{id}', [CasaCulturaController::class, 'destroy']);
-        Route::post('/filtrar-estado', [CasaCulturaController::class, 'filtrarPorEstado']);
+    // Cultural Centers
+    Route::prefix('cultural-centers')->group(function () {
+        Route::get('/', [CulturalCenterController::class, 'index']);
+        Route::post('/', [CulturalCenterController::class, 'store']);
+        Route::get('/{id}', [CulturalCenterController::class, 'show']);
+        Route::put('/{id}', [CulturalCenterController::class, 'update']);
+        Route::delete('/{id}', [CulturalCenterController::class, 'destroy']);
+        Route::post('/filter-by-state', [CulturalCenterController::class, 'filterByState']);
     });
 
-    // Ensayos
-    Route::prefix('ensayos')->group(function () {
-        Route::get('/', [EnsayoController::class, 'index']);
-        Route::post('/', [EnsayoController::class, 'store']);
-        Route::get('/{id}', [EnsayoController::class, 'show']);
-        Route::put('/{id}', [EnsayoController::class, 'update']);
-        Route::delete('/{id}', [EnsayoController::class, 'destroy']);
-        Route::post('/filtrar-fecha', [EnsayoController::class, 'filtrarPorFecha']);
+    // Rehearsals
+    Route::prefix('rehearsals')->group(function () {
+        Route::get('/', [RehearsalController::class, 'index']);
+        Route::post('/', [RehearsalController::class, 'store']);
+        Route::get('/{id}', [RehearsalController::class, 'show']);
+        Route::put('/{id}', [RehearsalController::class, 'update']);
+        Route::delete('/{id}', [RehearsalController::class, 'destroy']);
+        Route::post('/filter-by-date', [RehearsalController::class, 'filterByDate']);
     });
 });

@@ -9,16 +9,16 @@ class Instructor extends Model
 {
     use HasFactory;
 
-    protected $table = 'instructores';
+    protected $table = 'instructors';
 
     protected $fillable = [
-        'nombre',
-        'contacto'
+        'name',
+        'contact'
     ];
 
-    // Relación con talleres
-    public function talleres()
+    // Workshops relationship
+    public function workshops()
     {
-        return $this->hasMany(Taller::class, 'instructor_id');
+        return $this->hasMany(Workshop::class, 'instructor_id');
     }
 }

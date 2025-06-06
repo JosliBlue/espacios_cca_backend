@@ -12,7 +12,7 @@ use PHPOpenSourceSaver\JWTAuth\Facades\JWTAuth;
 class AuthController extends Controller
 {
     /**
-     *      Registro de usuario
+     *      User registration
      */
     public function register(Request $request): JsonResponse
     {
@@ -24,8 +24,8 @@ class AuthController extends Controller
 
         if ($validator->fails()) {
             return response()->json([
-                'estado' => false,
-                'errores' => $validator->errors()
+                'status' => false,
+                'errors' => $validator->errors()
             ], 422);
         }
 
@@ -37,25 +37,24 @@ class AuthController extends Controller
             ]);
 
             return response()->json([
-                'estado' => true,
-                'mensaje' => 'Usuario registrado exitosamente',
-                'usuario' => $user
+                'status' => true,
+                'message' => 'User registered successfully',
+                'user' => $user
             ], 201);
         } catch (\Exception $e) {
             return response()->json([
-                'estado' => false,
-                'mensaje' => 'Error al registrar el usuario',
+                'status' => false,
+                'message' => 'Error registering user',
                 'error' => $e->getMessage()
             ], 500);
         }
     }
 
     /**
-     *      Inicio de sesión
+     *      Login
      */
     public function login(Request $request): JsonResponse
     {
-
         $validator = Validator::make($request->all(), [
             'email' => 'required|email',
             'password' => 'required|string',
@@ -63,8 +62,8 @@ class AuthController extends Controller
 
         if ($validator->fails()) {
             return response()->json([
-                'estado' => false,
-                'errores' => $validator->errors()
+                'status' => false,
+                'errors' => $validator->errors()
             ], 422);
         }
 
@@ -73,14 +72,14 @@ class AuthController extends Controller
         try {
             if (!$token = JWTAuth::attempt($credentials)) {
                 return response()->json([
-                    'estado' => false,
-                    'mensaje' => 'Credenciales inválidas'
+                    'status' => false,
+                    'message' => 'Invalid credentials'
                 ], 401);
             }
         } catch (JWTException $e) {
             return response()->json([
-                'estado' => false,
-                'mensaje' => 'No se pudo generar el token'
+                'status' => false,
+                'message' => 'Could not generate token'
             ], 500);
         }
 
@@ -88,34 +87,34 @@ class AuthController extends Controller
     }
 
     /**
-     *      Obtener perfil de usuario
+     *      Get user profile
      */
-    public function perfil(): JsonResponse
+    public function profile(): JsonResponse
     {
         try {
             $user = JWTAuth::user();
 
             if (!$user) {
                 return response()->json([
-                    'estado' => false,
-                    'mensaje' => 'Usuario no autenticado'
+                    'status' => false,
+                    'message' => 'User not authenticated'
                 ], 401);
             }
 
             return response()->json([
-                'estado' => true,
-                'usuario' => $user
+                'status' => true,
+                'user' => $user
             ]);
         } catch (JWTException $e) {
             return response()->json([
-                'estado' => false,
-                'mensaje' => 'Error al obtener el usuario'
+                'status' => false,
+                'message' => 'Error getting user'
             ], 500);
         }
     }
 
     /**
-     *      Cerrar sesión
+     *      Logout
      */
     public function logout(): JsonResponse
     {
@@ -124,37 +123,37 @@ class AuthController extends Controller
 
             if (!$token) {
                 return response()->json([
-                    'estado' => false,
-                    'mensaje' => 'Token no proporcionado'
+                    'status' => false,
+                    'message' => 'Token not provided'
                 ], 401);
             }
 
             JWTAuth::invalidate($token);
 
             return response()->json([
-                'estado' => true,
-                'mensaje' => 'Sesión cerrada exitosamente'
+                'status' => true,
+                'message' => 'Successfully logged out'
             ]);
         } catch (JWTException $e) {
             return response()->json([
-                'estado' => false,
-                'mensaje' => 'Error al cerrar sesión'
+                'status' => false,
+                'message' => 'Error logging out'
             ], 500);
         }
     }
 
     /**
-     *      Actualizar token JWT
+     *      Refresh JWT token
      */
-    public function actualizar_token(): JsonResponse
+    public function refresh_token(): JsonResponse
     {
         try {
             $token = JWTAuth::getToken();
 
             if (!$token) {
                 return response()->json([
-                    'estado' => false,
-                    'mensaje' => 'Token no proporcionado'
+                    'status' => false,
+                    'message' => 'Token not provided'
                 ], 401);
             }
 
@@ -163,22 +162,22 @@ class AuthController extends Controller
             return $this->respondWithToken($newToken);
         } catch (JWTException $e) {
             return response()->json([
-                'estado' => false,
-                'mensaje' => 'No se pudo refrescar el token'
+                'status' => false,
+                'message' => 'Could not refresh token'
             ], 500);
         }
     }
 
     /**
-     *      Estructura de respuesta con token
+     *      Token response structure
      */
     protected function respondWithToken($token): JsonResponse
     {
         return response()->json([
-            'estado' => true,
+            'status' => true,
             'access_token' => $token,
             'token_type' => 'bearer',
-            'expira_en' => JWTAuth::factory()->getTTL()
+            'expires_in' => JWTAuth::factory()->getTTL()
         ]);
     }
 }

@@ -11,20 +11,19 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('talleres', function (Blueprint $table) {
+        Schema::create('workshops', function (Blueprint $table) {
             $table->id();
-            $table->string('nombre');
-
-            $table->float('costo_mensual');
-            $table->string('edad');
-            $table->string('dias_de_clase')->comment('lunes, martes, etc');
-            $table->string('horario_maniana')->nullable();
-            $table->string('horario_tarde')->nullable();
-            $table->foreignId('instructor_id')->constrained('instructores')
+            $table->string('name');
+            $table->float('monthly_cost');
+            $table->string('age_range');
+            $table->string('class_days')->comment('Monday, Tuesday, etc');
+            $table->string('morning_schedule')->nullable();
+            $table->string('afternoon_schedule')->nullable();
+            $table->foreignId('instructor_id')->constrained('instructors')
                 ->onDelete('restrict')->onUpdate('cascade');
-            $table->foreignId('lugar_id')->constrained('localizaciones')
+            $table->foreignId('location_id')->constrained('locations')
                 ->onDelete('restrict')->onUpdate('cascade');
-                $table->foreignId('categoria_id')->constrained('categorias');
+            $table->foreignId('category_id')->constrained('categories');
             $table->timestamps();
         });
     }
@@ -34,6 +33,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('talleres');
+        Schema::dropIfExists('workshops');
     }
 };

@@ -2,26 +2,26 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Localizacion;
+use App\Models\Location;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
-class LocalizacionController extends Controller
+class LocationController extends Controller
 {
     public function index(): JsonResponse
     {
         try {
-            $localizaciones = Localizacion::all();
+            $locations = Location::all();
 
             return response()->json([
-                'estado' => true,
-                'localizaciones' => $localizaciones
+                'status' => true,
+                'locations' => $locations
             ]);
         } catch (\Exception $e) {
             return response()->json([
-                'estado' => false,
-                'mensaje' => 'Error al obtener localizaciones',
+                'status' => false,
+                'message' => 'Error getting locations',
                 'error' => $e->getMessage()
             ], 500);
         }
@@ -30,28 +30,28 @@ class LocalizacionController extends Controller
     public function store(Request $request): JsonResponse
     {
         $validator = Validator::make($request->all(), [
-            'nombre' => 'required|string|max:255|unique:localizaciones'
+            'name' => 'required|string|max:255|unique:locations'
         ]);
 
         if ($validator->fails()) {
             return response()->json([
-                'estado' => false,
-                'errores' => $validator->errors()
+                'status' => false,
+                'errors' => $validator->errors()
             ], 422);
         }
 
         try {
-            $localizacion = Localizacion::create($request->all());
+            $location = Location::create($request->all());
 
             return response()->json([
-                'estado' => true,
-                'mensaje' => 'Localización creada exitosamente',
-                'localizacion' => $localizacion
+                'status' => true,
+                'message' => 'Location created successfully',
+                'location' => $location
             ], 201);
         } catch (\Exception $e) {
             return response()->json([
-                'estado' => false,
-                'mensaje' => 'Error al crear localización',
+                'status' => false,
+                'message' => 'Error creating location',
                 'error' => $e->getMessage()
             ], 500);
         }
@@ -60,16 +60,16 @@ class LocalizacionController extends Controller
     public function show($id): JsonResponse
     {
         try {
-            $localizacion = Localizacion::findOrFail($id);
+            $location = Location::findOrFail($id);
 
             return response()->json([
-                'estado' => true,
-                'localizacion' => $localizacion
+                'status' => true,
+                'location' => $location
             ]);
         } catch (\Exception $e) {
             return response()->json([
-                'estado' => false,
-                'mensaje' => 'Localización no encontrada'
+                'status' => false,
+                'message' => 'Location not found'
             ], 404);
         }
     }
@@ -77,29 +77,29 @@ class LocalizacionController extends Controller
     public function update(Request $request, $id): JsonResponse
     {
         $validator = Validator::make($request->all(), [
-            'nombre' => 'required|string|max:255|unique:localizaciones,nombre,'.$id
+            'name' => 'required|string|max:255|unique:locations,name,'.$id
         ]);
 
         if ($validator->fails()) {
             return response()->json([
-                'estado' => false,
-                'errores' => $validator->errors()
+                'status' => false,
+                'errors' => $validator->errors()
             ], 422);
         }
 
         try {
-            $localizacion = Localizacion::findOrFail($id);
-            $localizacion->update($request->all());
+            $location = Location::findOrFail($id);
+            $location->update($request->all());
 
             return response()->json([
-                'estado' => true,
-                'mensaje' => 'Localización actualizada exitosamente',
-                'localizacion' => $localizacion
+                'status' => true,
+                'message' => 'Location updated successfully',
+                'location' => $location
             ]);
         } catch (\Exception $e) {
             return response()->json([
-                'estado' => false,
-                'mensaje' => 'Error al actualizar localización',
+                'status' => false,
+                'message' => 'Error updating location',
                 'error' => $e->getMessage()
             ], 500);
         }
@@ -108,17 +108,17 @@ class LocalizacionController extends Controller
     public function destroy($id): JsonResponse
     {
         try {
-            $localizacion = Localizacion::findOrFail($id);
-            $localizacion->delete();
+            $location = Location::findOrFail($id);
+            $location->delete();
 
             return response()->json([
-                'estado' => true,
-                'mensaje' => 'Localización eliminada exitosamente'
+                'status' => true,
+                'message' => 'Location deleted successfully'
             ]);
         } catch (\Exception $e) {
             return response()->json([
-                'estado' => false,
-                'mensaje' => 'Error al eliminar localización',
+                'status' => false,
+                'message' => 'Error deleting location',
                 'error' => $e->getMessage()
             ], 500);
         }

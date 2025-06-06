@@ -11,14 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('ensayos', function (Blueprint $table) {
+        Schema::create('rehearsals', function (Blueprint $table) {
             $table->id();
-            $table->string('nombre');
-            $table->foreignId('lugar')->constrained('localizaciones')
+            $table->string('name');
+            $table->foreignId('location_id')->constrained('locations')
                 ->onDelete('restrict')->onUpdate('cascade');
-            $table->date('fecha');
-            $table->time('horario_inicio');
-            $table->time('horario_fin');
+            $table->date('date');
+            $table->time('start_time');
+            $table->time('end_time');
             $table->timestamps();
         });
     }
@@ -28,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('ensayos');
+        Schema::dropIfExists('rehearsals');
     }
 };

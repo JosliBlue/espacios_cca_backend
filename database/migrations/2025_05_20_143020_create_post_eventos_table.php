@@ -11,11 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('post_eventos', function (Blueprint $table) {
+        Schema::create('post_events', function (Blueprint $table) {
             $table->id();
-            $table->integer('infantes_asistido');
-            $table->integer('jovenes_asistidos');
-            $table->integer('adultos_asistidos');
+            $table->integer('children_attended');
+            $table->integer('youth_attended');
+            $table->integer('adults_attended');
             $table->timestamps();
         });
     }
@@ -25,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('post_eventos');
+        Schema::dropIfExists('post_events');
     }
 };
