@@ -4,8 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
+return new class extends Migration {
     /**
      * Run the migrations.
      */
@@ -16,14 +15,12 @@ return new class extends Migration
             $table->string('name');
             $table->float('monthly_cost');
             $table->string('age_range');
-            $table->string('class_days')->comment('Monday, Tuesday, etc');
-            $table->string('morning_schedule')->nullable();
-            $table->string('afternoon_schedule')->nullable();
-            $table->foreignId('instructor_id')->constrained('instructors')
-                ->onDelete('restrict')->onUpdate('cascade');
-            $table->foreignId('location_id')->constrained('locations')
-                ->onDelete('restrict')->onUpdate('cascade');
+            //$table->string('class_days')->comment('Monday, Tuesday, etc');
             $table->foreignId('category_id')->constrained('categories');
+            $table->foreignId('instructor_id')->constrained('instructors')->onDelete('restrict')->onUpdate('cascade');
+            $table->foreignId('location_id')->constrained('locations')->onDelete('restrict')->onUpdate('cascade');
+            //$table->string('morning_schedule')->nullable();
+            //$table->string('afternoon_schedule')->nullable();
             $table->timestamps();
         });
     }

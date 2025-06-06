@@ -4,8 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
+return new class extends Migration {
     /**
      * Run the migrations.
      */
@@ -13,8 +12,6 @@ return new class extends Migration
     {
         Schema::create('cultural_centers', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('location_id')->constrained('locations')
-                ->onDelete('restrict')->onUpdate('cascade');
             $table->string('name');
             $table->date('date');
             $table->time('start_time');
@@ -25,12 +22,11 @@ return new class extends Migration
             $table->boolean('reserved');
             $table->enum('status', ['Approved', 'Rejected', 'Pending']);
             $table->boolean('agreement_signed');
-            $table->boolean('official_document_delivered');
+            $table->boolean('delivery_document');
             $table->enum('event_type', ['Free', 'Paid']);
-            $table->foreignId('category_id')->constrained('categories')
-                ->onDelete('restrict')->onUpdate('cascade');
-            $table->foreignId('post_event_id')->constrained('post_events')
-                ->onDelete('restrict')->onUpdate('cascade');
+            $table->foreignId('location_id')->constrained('locations')->onDelete('restrict')->onUpdate('cascade');
+            $table->foreignId('category_id')->constrained('categories')->onDelete('restrict')->onUpdate('cascade');
+            $table->foreignId('post_event_id')->constrained('post_events')->onDelete('restrict')->onUpdate('cascade');
             $table->timestamps();
         });
     }

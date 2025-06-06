@@ -11,6 +11,7 @@ use App\Http\Controllers\WorkshopController;
 use App\Http\Controllers\EventPostController;
 use App\Http\Controllers\CulturalCenterController;
 use App\Http\Controllers\RehearsalController;
+use App\Http\Controllers\WorkshopScheduleController;
 
 /*
 |--------------------------------------------------------------------------
