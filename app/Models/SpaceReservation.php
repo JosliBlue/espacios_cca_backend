@@ -32,9 +32,9 @@ class SpaceReservation extends Model
         'agreement_signed',
         'delivery_document',
         'event',
-        'location',
-        'category',
-        'event_post'
+        'location_id',
+        'category_id',
+        'event_post_id'
     ];
 
     protected $casts = [
@@ -50,18 +50,18 @@ class SpaceReservation extends Model
     // Category relationship
     public function category()
     {
-        return $this->belongsTo(Category::class, 'category');
+        return $this->belongsTo(Category::class, 'category_id');
     }
 
     // Location relationship
     public function location()
     {
-        return $this->belongsTo(Location::class, 'location');
+        return $this->belongsTo(Location::class, 'location_id');
     }
 
     // Event post relationship
     public function postEvent()
     {
-        return $this->belongsTo(PostEvent::class, 'event_post');
+        return $this->belongsTo(PostEvent::class, 'post_event_id');
     }
 }

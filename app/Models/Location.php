@@ -24,7 +24,7 @@ class Location extends Model
     // space reservation events relationship
     public function SpaceReservationEvents()
     {
-        return $this->hasMany(SpaceReservation::class, 'location');
+        return $this->hasMany(SpaceReservation::class, 'location_id');
     }
 
     // Essays relationship

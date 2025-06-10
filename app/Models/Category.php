@@ -24,6 +24,6 @@ class Category extends Model
     // space reservation events relationship
     public function SpaceReservationEvents()
     {
-        return $this->hasMany(SpaceReservation::class, 'category');
+        return $this->hasMany(SpaceReservation::class, 'category_id');
     }
 }

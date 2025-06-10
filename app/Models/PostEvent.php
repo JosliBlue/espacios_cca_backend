@@ -27,6 +27,6 @@ class PostEvent extends Model
     // space reservation relationship
     public function SpaceReservation()
     {
-        return $this->hasOne(SpaceReservation::class, 'event_post');
+        return $this->hasOne(SpaceReservation::class, 'post_event_id');
     }
 }
