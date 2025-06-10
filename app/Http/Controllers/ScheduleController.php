@@ -11,6 +11,20 @@ use Illuminate\Support\Facades\DB;
 
 class ScheduleController extends Controller
 {
+    private function getDayInSpanish($date)
+    {
+        $days = [
+            'Monday' => 'Lunes',
+            'Tuesday' => 'Martes',
+            'Wednesday' => 'Miercoles',
+            'Thursday' => 'Jueves',
+            'Friday' => 'Viernes',
+            'Saturday' => 'Sabado',
+            'Sunday' => 'Domingo'
+        ];
+        return $days[$date->format('l')];
+    }
+
     public function getOccupiedSchedules(Request $request, $placeId)
     {
         $start = $request->query('start');
@@ -21,7 +35,7 @@ class ScheduleController extends Controller
             ->whereBetween('date', [$start, $end])
             ->select(
                 'id',
-                DB::raw("'Reserva' as title"),
+                'name as title',
                 DB::raw("CONCAT(date, 'T', start_time) as start"),
                 DB::raw("CONCAT(date, 'T', end_time) as end"),
                 DB::raw("'space_reservation' as type")
@@ -33,20 +47,12 @@ class ScheduleController extends Controller
         $startDate = Carbon::parse($start);
         $endDate = Carbon::parse($end);
 
-        for ($date = $startDate; $date <= $endDate; $date->addDay()) {
-            $dayOfWeek = $date->format('l'); // Gets day name (Monday, Tuesday, etc.)
+        for ($date = $startDate->copy(); $date <= $endDate; $date->addDay()) {
+            $dayOfWeek = $this->getDayInSpanish($date);
 
             $schedules = WorkshopSchedule::join('workshops', 'workshop_schedules.workshop_id', '=', 'workshops.id')
                 ->where('workshops.location_id', $placeId)
                 ->where('workshop_schedules.day_of_week', $dayOfWeek)
-                ->where(function ($query) use ($date) {
-                    $query->whereNull('workshops.start_date')
-                        ->orWhere('workshops.start_date', '<=', $date)
-                        ->where(function ($q) use ($date) {
-                            $q->whereNull('workshops.end_date')
-                                ->orWhere('workshops.end_date', '>=', $date);
-                        });
-                })
                 ->select(
                     'workshops.id',
                     'workshops.name as title',
@@ -75,6 +81,12 @@ class ScheduleController extends Controller
 
     public function checkAvailability(Request $request, $placeId)
     {
+        $request->validate([
+            'date' => 'required|date_format:Y-m-d',
+            'startTime' => 'required|date_format:H:i:s',
+            'endTime' => 'required|date_format:H:i:s'
+        ]);
+
         $date = $request->input('date');
         $startTime = $request->input('startTime');
         $endTime = $request->input('endTime');
@@ -101,18 +113,10 @@ class ScheduleController extends Controller
         }
 
         // Check workshop schedules
-        $dayOfWeek = Carbon::parse($date)->format('l');
+        $dayOfWeek = $this->getDayInSpanish(Carbon::createFromFormat('Y-m-d', $date));
         $hasWorkshop = WorkshopSchedule::join('workshops', 'workshop_schedules.workshop_id', '=', 'workshops.id')
             ->where('workshops.location_id', $placeId)
             ->where('workshop_schedules.day_of_week', $dayOfWeek)
-            ->where(function ($query) use ($date) {
-                $query->whereNull('workshops.start_date')
-                    ->orWhere('workshops.start_date', '<=', $date)
-                    ->where(function ($q) use ($date) {
-                        $q->whereNull('workshops.end_date')
-                            ->orWhere('workshops.end_date', '>=', $date);
-                    });
-            })
             ->where(function ($query) use ($startTime, $endTime) {
                 $query->where(function ($q) use ($startTime) {
                     $q->where('workshop_schedules.start_time', '<=', $startTime)
