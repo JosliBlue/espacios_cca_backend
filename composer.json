@@ -33,6 +33,22 @@
         }
     },
     "scripts": {
+        "dev": [
+            "@php artisan serve"
+        ],
+        "dev:clear": [
+            "@php artisan optimize:clear",
+            "@php artisan config:clear",
+            "@php artisan cache:clear",
+            "@php artisan view:clear",
+            "@php artisan route:clear"
+        ],
+        "test": [
+            "@php artisan test"
+        ],
+        "test:coverage": [
+            "@php artisan test --coverage"
+        ],
         "post-autoload-dump": [
             "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
             "@php artisan package:discover --ansi"

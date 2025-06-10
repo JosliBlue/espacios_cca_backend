@@ -1,16 +1,16 @@
 <?php
 
-use App\Http\Middleware\IsUserAuth;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CategoryController;
-use App\Http\Controllers\LocationController;
-use App\Http\Controllers\InstructorController;
-use App\Http\Controllers\WorkshopController;
-use App\Http\Controllers\PostEventController;
-use App\Http\Controllers\SpaceReservationController;
 use App\Http\Controllers\EssayController;
+use App\Http\Controllers\InstructorController;
+use App\Http\Controllers\LocationController;
+use App\Http\Controllers\PostEventController;
+use App\Http\Controllers\ScheduleController;
+use App\Http\Controllers\SpaceReservationController;
+use App\Http\Controllers\WorkshopController;
+use App\Http\Middleware\IsUserAuth;
+use Illuminate\Support\Facades\Route;
 
 // Public Authentication
 Route::post('/register', [AuthController::class, 'register']);
@@ -87,5 +87,11 @@ Route::middleware([IsUserAuth::class])->group(function () {
         Route::put('/{id}', [EssayController::class, 'update']);
         Route::delete('/{id}', [EssayController::class, 'destroy']);
         Route::post('/filter-by-date', [EssayController::class, 'filterByDate']);
+    });
+
+    // Schedule Management
+    Route::prefix('places')->group(function () {
+        Route::get('/{placeId}/occupied', [ScheduleController::class, 'getOccupiedSchedules']);
+        Route::post('/{placeId}/check-availability', [ScheduleController::class, 'checkAvailability']);
     });
 });
