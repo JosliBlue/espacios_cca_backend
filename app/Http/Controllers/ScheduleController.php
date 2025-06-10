@@ -30,17 +30,27 @@ class ScheduleController extends Controller
         $start = $request->query('start');
         $end = $request->query('end');
 
-        // Get space reservations
         $reservations = SpaceReservation::where('location_id', $placeId)
             ->whereBetween('date', [$start, $end])
             ->select(
                 'id',
-                'name as title',
-                DB::raw("CONCAT(date, 'T', start_time) as start"),
-                DB::raw("CONCAT(date, 'T', end_time) as end"),
+                'name',
+                'date',
+                'start_time',
+                'end_time',
                 DB::raw("'space_reservation' as type")
             )
-            ->get();
+            ->get()
+            ->map(function ($reservation) {
+                return [
+                    'id' => $reservation->id,
+                    'name' => $reservation->name,
+                    'date' => Carbon::parse($reservation->date)->format('Y-m-d'),
+                    'start_time' => $reservation->start_time->format('H:i'),
+                    'end_time' => $reservation->end_time->format('H:i'),
+                    'type' => $reservation->type,
+                ];
+            });
 
         // Get workshop schedules
         $workshopSchedules = [];
@@ -55,7 +65,7 @@ class ScheduleController extends Controller
                 ->where('workshop_schedules.day_of_week', $dayOfWeek)
                 ->select(
                     'workshops.id',
-                    'workshops.name as title',
+                    'workshops.name as name',
                     'workshop_schedules.start_time',
                     'workshop_schedules.end_time'
                 )
@@ -63,11 +73,11 @@ class ScheduleController extends Controller
 
             foreach ($schedules as $schedule) {
                 $workshopSchedules[] = [
-                    'id' => 'w'.$schedule->id,
-                    'title' => 'Taller: '.$schedule->title,
+                    'id' => $schedule->id,
+                    'name' => $schedule->name,
                     'date' => $date->format('Y-m-d'),
-                    'start' => $schedule->start_time,
-                    'end' => $schedule->end_time,
+                    'start' => $schedule->start_time->format('H:i'),
+                    'end' => $schedule->end_time->format('H:i'),
                     'type' => 'workshop',
                 ];
             }
