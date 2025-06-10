@@ -10,7 +10,7 @@ return new class extends Migration {
      */
     public function up(): void
     {
-        Schema::create('cultural_centers', function (Blueprint $table) {
+        Schema::create('space_reservations', function (Blueprint $table) {
             $table->id();
             $table->string('name');
             $table->date('date');
@@ -20,10 +20,10 @@ return new class extends Migration {
             $table->char('responsible_person_phone', 10);
             $table->boolean('contract_reception_signed');
             $table->boolean('reserved');
-            $table->enum('status', ['Approved', 'Rejected', 'Pending']);
+            $table->enum('status', ['Aprobado', 'Rechazado', 'Pendiente']);
             $table->boolean('agreement_signed');
             $table->boolean('delivery_document');
-            $table->enum('event_type', ['Free', 'Paid']);
+            $table->enum('event_type', ['Gratuito', 'Pagado']);
             $table->foreignId('location_id')->constrained('locations')->onDelete('restrict')->onUpdate('cascade');
             $table->foreignId('category_id')->constrained('categories')->onDelete('restrict')->onUpdate('cascade');
             $table->foreignId('post_event_id')->constrained('post_events')->onDelete('restrict')->onUpdate('cascade');
@@ -36,6 +36,6 @@ return new class extends Migration {
      */
     public function down(): void
     {
-        Schema::dropIfExists('cultural_centers');
+        Schema::dropIfExists('space_reservations');
     }
 };

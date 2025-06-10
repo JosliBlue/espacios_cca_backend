@@ -14,19 +14,14 @@ class Workshop extends Model
     protected $fillable = [
         'name',
         'monthly_cost',
-        'age',
-        'class_days',
-        'morning_schedule',
-        'afternoon_schedule',
+        'age_range',
         'instructor_id',
         'location_id',
         'category_id'
     ];
 
     protected $casts = [
-        'monthly_cost' => 'float',
-        'morning_schedule' => 'datetime:H:i',
-        'afternoon_schedule' => 'datetime:H:i'
+        'monthly_cost' => 'float'
     ];
 
     // Instructor relationship
@@ -45,5 +40,11 @@ class Workshop extends Model
     public function category()
     {
         return $this->belongsTo(Category::class, 'category_id');
+    }
+
+    // Workshop schedules relationship
+    public function schedules()
+    {
+        return $this->hasMany(WorkshopSchedule::class);
     }
 }

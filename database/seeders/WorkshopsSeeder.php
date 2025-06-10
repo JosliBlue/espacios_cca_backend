@@ -24,122 +24,35 @@ class WorkshopsSeeder extends Seeder
         }
 
         // Seed locations (assuming one location for all workshops)
-        $location = Location::create(['name' => 'Cultural Center']);
+        $location = Location::create(['name' => 'space reservation']);
 
         // Seed instructors
         $instructors = [
-            [
-                'name' => 'Ballet Instructor',
-                'contact' => '0999515048'
-            ],
-            [
-                'name' => 'Folk Dance Instructor',
-                'contact' => '0986304755'
-            ],
-            [
-                'name' => 'Capoeira Instructor',
-                'contact' => '0984105293'
-            ],
-            [
-                'name' => 'Urban Dance Instructor',
-                'contact' => '0996492554'
-            ],
-            [
-                'name' => 'Dance Theater Instructor',
-                'contact' => '0995296551'
-            ],
-            [
-                'name' => 'Therapeutic Ballroom Dance Instructor',
-                'contact' => '0999515048'
-            ],
-            [
-                'name' => 'Theater Instructor',
-                'contact' => '0987952269'
-            ],
-            [
-                'name' => 'Acting for Film and TV Instructor',
-                'contact' => '0982892359'
-            ],
-            [
-                'name' => 'Choir Instructor',
-                'contact' => '0985808781'
-            ],
-            [
-                'name' => 'Singing Instructor',
-                'contact' => '0986760871'
-            ],
-            [
-                'name' => 'Violin, Viola, Cello Instructor',
-                'contact' => '0983087747'
-            ],
-            [
-                'name' => 'Specialized Violin Instructor',
-                'contact' => '0999515048'
-            ],
-            [
-                'name' => 'Popular Guitar Instructor',
-                'contact' => '0986036074'
-            ],
-            [
-                'name' => 'Classical/Electric Guitar Instructor',
-                'contact' => '0989216465'
-            ],
-            [
-                'name' => 'Piano Instructor',
-                'contact' => '0986295107'
-            ],
-            [
-                'name' => 'Accordion and Percussion Instructor',
-                'contact' => '0994418363'
-            ],
-            [
-                'name' => 'Drums Instructor',
-                'contact' => '0986023796'
-            ],
-            [
-                'name' => 'Andean Instruments Instructor',
-                'contact' => '0999515048'
-            ],
-            [
-                'name' => 'Theater for People with Disabilities Instructor',
-                'contact' => '0999515048'
-            ],
-            [
-                'name' => 'Photography and Video Instructor',
-                'contact' => '0985331478'
-            ],
-            [
-                'name' => 'Artificial Intelligence Instructor',
-                'contact' => '0981137450'
-            ],
-            [
-                'name' => 'Cinematography Instructor',
-                'contact' => '0989492091'
-            ],
-            [
-                'name' => 'Drawing Instructor',
-                'contact' => '0986585565'
-            ],
-            [
-                'name' => 'Calligraphy Instructor',
-                'contact' => '0985695836'
-            ],
-            [
-                'name' => 'Declamation Instructor',
-                'contact' => '0988677885'
-            ],
-            [
-                'name' => 'Creative Writing Instructor',
-                'contact' => '0998452636'
-            ],
-            [
-                'name' => 'Chess Instructor',
-                'contact' => '0998637647'
-            ],
-            [
-                'name' => 'Introduction to Kichwa Instructor',
-                'contact' => '0984073983'
-            ],
+            ['id' => 1, 'name' => 'Andrea Mora', 'contact' => '0995883096', 'created_at' => '2025-05-27 20:23:04', 'updated_at' => '2025-05-27 20:23:04'],
+            ['id' => 2, 'name' => 'Juan Rosero', 'contact' => '0995915048', 'created_at' => '2025-05-27 20:23:04', 'updated_at' => '2025-05-27 20:23:04'],
+            ['id' => 3, 'name' => 'Paulo Jurado', 'contact' => '0996492554', 'created_at' => '2025-05-27 20:23:04', 'updated_at' => '2025-05-27 20:23:04'],
+            ['id' => 4, 'name' => 'Juan Muñoz', 'contact' => '0987420305', 'created_at' => '2025-05-27 20:23:04', 'updated_at' => '2025-05-27 20:23:04'],
+            ['id' => 5, 'name' => 'Valeria Brito', 'contact' => '0999906927', 'created_at' => '2025-05-27 20:23:04', 'updated_at' => '2025-05-27 20:23:04'],
+            ['id' => 6, 'name' => 'Rodrigo Herrera', 'contact' => '0984587081', 'created_at' => '2025-05-27 20:23:04', 'updated_at' => '2025-05-27 20:23:04'],
+            ['id' => 7, 'name' => 'Fanny Ramon', 'contact' => '0998006634', 'created_at' => '2025-05-27 20:23:04', 'updated_at' => '2025-05-27 20:23:04'],
+            ['id' => 8, 'name' => 'Estefanía Avilés', 'contact' => '0983087047', 'created_at' => '2025-05-27 20:23:04', 'updated_at' => '2025-05-27 20:23:04'],
+            ['id' => 9, 'name' => 'Christian Cedeño', 'contact' => '0960478650', 'created_at' => '2025-05-27 20:23:04', 'updated_at' => '2025-05-27 20:23:04'],
+            ['id' => 10, 'name' => 'Carlos Landa', 'contact' => '0992900763', 'created_at' => '2025-05-27 20:23:04', 'updated_at' => '2025-05-27 20:23:04'],
+            ['id' => 11, 'name' => 'Diego Navarrete', 'contact' => '0984055459', 'created_at' => '2025-05-27 20:23:04', 'updated_at' => '2025-05-27 20:23:04'],
+            ['id' => 12, 'name' => 'Antonio Lozada', 'contact' => '0998515616', 'created_at' => '2025-05-27 20:23:04', 'updated_at' => '2025-05-27 20:23:04'],
+            ['id' => 13, 'name' => 'Juan Cristancho', 'contact' => '0984714368', 'created_at' => '2025-05-27 20:23:04', 'updated_at' => '2025-05-27 20:23:04'],
+            ['id' => 14, 'name' => 'Jarry Moya', 'contact' => '0981421125', 'created_at' => '2025-05-27 20:23:04', 'updated_at' => '2025-05-27 20:23:04'],
+            ['id' => 15, 'name' => 'Alexander Campoverde', 'contact' => '0958955916', 'created_at' => '2025-05-27 20:23:04', 'updated_at' => '2025-05-27 20:23:04'],
+            ['id' => 16, 'name' => 'Augusto Días', 'contact' => '0998286429', 'created_at' => '2025-05-27 20:23:04', 'updated_at' => '2025-05-27 20:23:04'],
+            ['id' => 17, 'name' => 'Jaime Echeverría', 'contact' => '0983134748', 'created_at' => '2025-05-27 20:23:04', 'updated_at' => '2025-05-27 20:23:04'],
+            ['id' => 18, 'name' => 'William Sánchez', 'contact' => '0995934528', 'created_at' => '2025-05-27 20:23:04', 'updated_at' => '2025-05-27 20:23:04'],
+            ['id' => 19, 'name' => 'Leonardo Brito', 'contact' => '0987434245', 'created_at' => '2025-05-27 20:23:04', 'updated_at' => '2025-05-27 20:23:04'],
+            ['id' => 20, 'name' => 'Alisson Sánchez', 'contact' => '0994855655', 'created_at' => '2025-05-27 20:23:04', 'updated_at' => '2025-05-27 20:23:04'],
+            ['id' => 21, 'name' => 'Luis Quesada', 'contact' => '0999233895', 'created_at' => '2025-05-27 20:23:04', 'updated_at' => '2025-05-27 20:23:04'],
+            ['id' => 22, 'name' => 'Margoth Catuta', 'contact' => '0995979739', 'created_at' => '2025-05-27 20:23:04', 'updated_at' => '2025-05-27 20:23:04'],
+            ['id' => 23, 'name' => 'Rodrigo Jurado', 'contact' => '0962797469', 'created_at' => '2025-05-27 20:23:04', 'updated_at' => '2025-05-27 20:23:04'],
+            ['id' => 24, 'name' => 'Cesar Viera', 'contact' => '0998702688', 'created_at' => '2025-05-27 20:23:04', 'updated_at' => '2025-05-27 20:23:04'],
+            ['id' => 25, 'name' => 'Kusi Masaquiza', 'contact' => '0994377739', 'created_at' => '2025-05-27 20:23:04', 'updated_at' => '2025-05-27 20:23:04'],
         ];
 
         foreach ($instructors as $instructor) {
@@ -148,25 +61,42 @@ class WorkshopsSeeder extends Seeder
 
         // Seed workshops
         $workshops = [
-            // Dance and Theater
             [
-                'name' => 'Ballet (Baby, Pre, Initial, Youth)',
+                'name' => 'Baby Ballet',
                 'monthly_cost' => 30,
-                'age_range' => 'from 3 years',
-                'class_days' => 'various (by level)',
-                'morning_schedule' => null,
-                'afternoon_schedule' => null,
+                'age_range' => '1; 3 a 4; 5 a 6',
                 'instructor_id' => 1,
                 'location_id' => 1,
                 'category_id' => 1
             ],
             [
-                'name' => 'Folk Dance',
+                'name' => 'Pre Ballet',
+                'monthly_cost' => 30,
+                'age_range' => '7 a 9',
+                'instructor_id' => 1,
+                'location_id' => 1,
+                'category_id' => 1
+            ],
+            [
+                'name' => 'Ballet Inicial',
+                'monthly_cost' => 30,
+                'age_range' => '10+',
+                'instructor_id' => 1,
+                'location_id' => 1,
+                'category_id' => 1
+            ],
+            [
+                'name' => 'Ballet Inicial Juvenil',
+                'monthly_cost' => 30,
+                'age_range' => '16+',
+                'instructor_id' => 1,
+                'location_id' => 1,
+                'category_id' => 1
+            ],
+            [
+                'name' => 'Danza Folklorica',
                 'monthly_cost' => 30,
                 'age_range' => '5+',
-                'class_days' => 'Tuesday, Thursday',
-                'morning_schedule' => null,
-                'afternoon_schedule' => '15:00-17:00',
                 'instructor_id' => 2,
                 'location_id' => 1,
                 'category_id' => 1
@@ -175,290 +105,210 @@ class WorkshopsSeeder extends Seeder
                 'name' => 'Capoeira',
                 'monthly_cost' => 25,
                 'age_range' => '5+',
-                'class_days' => 'Tuesday, Thursday',
-                'morning_schedule' => null,
-                'afternoon_schedule' => '17:00-18:30',
                 'instructor_id' => 3,
                 'location_id' => 1,
                 'category_id' => 1
             ],
             [
-                'name' => 'Urban Dance',
+                'name' => 'Danza Urbana',
                 'monthly_cost' => 25,
-                'age_range' => '5+',
-                'class_days' => 'Monday, Wednesday',
-                'morning_schedule' => null,
-                'afternoon_schedule' => '16:00-17:30',
+                'age_range' => '12+',
                 'instructor_id' => 4,
                 'location_id' => 1,
                 'category_id' => 1
             ],
             [
-                'name' => 'Dance Theater',
+                'name' => 'Danza Teatro',
                 'monthly_cost' => 30,
-                'age_range' => '10+',
-                'class_days' => 'Monday, Wednesday',
-                'morning_schedule' => null,
-                'afternoon_schedule' => '15:00-16:30',
+                'age_range' => '8 a 16',
                 'instructor_id' => 5,
                 'location_id' => 1,
                 'category_id' => 1
             ],
             [
-                'name' => 'Therapeutic Ballroom Dance',
+                'name' => 'Baile de Salón Terapéutico',
+                'monthly_cost' => 25,
+                'age_range' => '60+',
+                'instructor_id' => 1,
+                'location_id' => 1,
+                'category_id' => 1
+            ],
+            [
+                'name' => 'Coro',
                 'monthly_cost' => 30,
-                'age_range' => 'Adults',
-                'class_days' => 'Tuesday, Thursday',
-                'morning_schedule' => '8:00-9:00',
-                'afternoon_schedule' => null,
+                'age_range' => '6 a 18',
                 'instructor_id' => 6,
                 'location_id' => 1,
                 'category_id' => 1
             ],
             [
-                'name' => 'Theater',
-                'monthly_cost' => 25,
-                'age_range' => '12+',
-                'class_days' => 'Tuesday, Thursday',
-                'morning_schedule' => null,
-                'afternoon_schedule' => '17:00-18:30',
+                'name' => 'Canto',
+                'monthly_cost' => 30,
+                'age_range' => '5+',
                 'instructor_id' => 7,
                 'location_id' => 1,
                 'category_id' => 1
             ],
             [
-                'name' => 'Acting for Film and TV',
+                'name' => 'Violín, Viola y Violonchelo',
                 'monthly_cost' => 30,
-                'age_range' => '7+',
-                'class_days' => 'Wednesday, Friday',
-                'morning_schedule' => null,
-                'afternoon_schedule' => '17:00-18:30',
+                'age_range' => '5+',
                 'instructor_id' => 8,
                 'location_id' => 1,
                 'category_id' => 1
             ],
-            // Music
             [
-                'name' => 'Choir',
-                'monthly_cost' => 30,
-                'age_range' => '6+',
-                'class_days' => 'Monday, Friday',
-                'morning_schedule' => null,
-                'afternoon_schedule' => '16:30-18:00',
+                'name' => 'Violín Especializado',
+                'monthly_cost' => 60,
+                'age_range' => '5+',
                 'instructor_id' => 9,
                 'location_id' => 1,
-                'category_id' => 2
+                'category_id' => 1
             ],
             [
-                'name' => 'Singing',
+                'name' => 'Guitarra Popular',
                 'monthly_cost' => 30,
-                'age_range' => '6+',
-                'class_days' => 'Monday, Wednesday',
-                'morning_schedule' => null,
-                'afternoon_schedule' => '15:00-16:30',
+                'age_range' => '5+',
                 'instructor_id' => 10,
                 'location_id' => 1,
-                'category_id' => 2
+                'category_id' => 1
             ],
             [
-                'name' => 'Violin, Viola, Cello',
+                'name' => 'Guitarra Clásica - Eléctrica',
                 'monthly_cost' => 30,
-                'age_range' => '6+',
-                'class_days' => 'Tuesday, Thursday',
-                'morning_schedule' => null,
-                'afternoon_schedule' => '15:00-16:30',
+                'age_range' => '12+',
                 'instructor_id' => 11,
                 'location_id' => 1,
-                'category_id' => 2
-            ],
-            [
-                'name' => 'Specialized Violin',
-                'monthly_cost' => 30,
-                'age_range' => '6+',
-                'class_days' => 'Monday, Wednesday',
-                'morning_schedule' => null,
-                'afternoon_schedule' => '16:30-18:00',
-                'instructor_id' => 12,
-                'location_id' => 1,
-                'category_id' => 2
-            ],
-            [
-                'name' => 'Popular Guitar',
-                'monthly_cost' => 30,
-                'age_range' => '6+',
-                'class_days' => 'Tuesday, Thursday',
-                'morning_schedule' => null,
-                'afternoon_schedule' => '16:30-18:00',
-                'instructor_id' => 13,
-                'location_id' => 1,
-                'category_id' => 2
-            ],
-            [
-                'name' => 'Classical/Electric Guitar',
-                'monthly_cost' => 30,
-                'age_range' => '6+',
-                'class_days' => 'Monday, Wednesday',
-                'morning_schedule' => null,
-                'afternoon_schedule' => '15:00-16:30',
-                'instructor_id' => 14,
-                'location_id' => 1,
-                'category_id' => 2
+                'category_id' => 1
             ],
             [
                 'name' => 'Piano',
+                'monthly_cost' => 40,
+                'age_range' => '9+',
+                'instructor_id' => 12,
+                'location_id' => 1,
+                'category_id' => 1
+            ],
+            [
+                'name' => 'Acordeón y Percusión',
+                'monthly_cost' => 25,
+                'age_range' => '12+',
+                'instructor_id' => 13,
+                'location_id' => 1,
+                'category_id' => 1
+            ],
+            [
+                'name' => 'Batería',
                 'monthly_cost' => 30,
-                'age_range' => '6+',
-                'class_days' => 'Tuesday, Thursday',
-                'morning_schedule' => null,
-                'afternoon_schedule' => '15:00-16:30',
+                'age_range' => '5+',
+                'instructor_id' => 14,
+                'location_id' => 1,
+                'category_id' => 1
+            ],
+            [
+                'name' => 'instrumentos Andinos',
+                'monthly_cost' => 30,
+                'age_range' => '5+',
+                'instructor_id' => 2,
+                'location_id' => 1,
+                'category_id' => 1
+            ],
+            [
+                'name' => 'Teatro para Personas con Discapacidad',
+                'monthly_cost' => 15,
+                'age_range' => '12+',
                 'instructor_id' => 15,
                 'location_id' => 1,
-                'category_id' => 2
+                'category_id' => 1
             ],
             [
-                'name' => 'Accordion and Percussion',
+                'name' => 'Teatro',
+                'monthly_cost' => 25,
+                'age_range' => '15+',
+                'instructor_id' => 15,
+                'location_id' => 1,
+                'category_id' => 1
+            ],
+            [
+                'name' => 'Actuación para Cine y TV',
                 'monthly_cost' => 30,
-                'age_range' => '6+',
-                'class_days' => 'Monday, Wednesday',
-                'morning_schedule' => null,
-                'afternoon_schedule' => '16:30-18:00',
+                'age_range' => '7+',
                 'instructor_id' => 16,
                 'location_id' => 1,
-                'category_id' => 2
+                'category_id' => 1
             ],
             [
-                'name' => 'Drums',
+                'name' => 'Fotografía y Video (Dispositivo Móvil)',
                 'monthly_cost' => 30,
-                'age_range' => '6+',
-                'class_days' => 'Tuesday, Thursday',
-                'morning_schedule' => null,
-                'afternoon_schedule' => '16:30-18:00',
+                'age_range' => '15 a 25',
                 'instructor_id' => 17,
                 'location_id' => 1,
-                'category_id' => 2
+                'category_id' => 1
             ],
             [
-                'name' => 'Andean Instruments',
+                'name' => 'Inteligencia Artificial',
                 'monthly_cost' => 30,
-                'age_range' => '6+',
-                'class_days' => 'Monday, Wednesday',
-                'morning_schedule' => null,
-                'afternoon_schedule' => '15:00-16:30',
+                'age_range' => '13+',
                 'instructor_id' => 18,
                 'location_id' => 1,
-                'category_id' => 2
+                'category_id' => 1
             ],
-            // Education, Arts and Technology
             [
-                'name' => 'Theater for People with Disabilities',
+                'name' => 'Comunicación y Marketing Digital para Artistas y Emprendedores',
                 'monthly_cost' => 30,
-                'age_range' => 'All ages',
-                'class_days' => 'Tuesday, Thursday',
-                'morning_schedule' => null,
-                'afternoon_schedule' => '15:00-16:30',
+                'age_range' => '15+',
                 'instructor_id' => 19,
                 'location_id' => 1,
-                'category_id' => 3
+                'category_id' => 1
             ],
             [
-                'name' => 'Photography and Video',
+                'name' => 'Dibujo',
                 'monthly_cost' => 30,
-                'age_range' => '12+',
-                'class_days' => 'Monday, Wednesday',
-                'morning_schedule' => null,
-                'afternoon_schedule' => '15:00-16:30',
+                'age_range' => '5+',
                 'instructor_id' => 20,
                 'location_id' => 1,
-                'category_id' => 3
+                'category_id' => 1
             ],
             [
-                'name' => 'Artificial Intelligence',
+                'name' => 'Caligrafía',
                 'monthly_cost' => 30,
-                'age_range' => '12+',
-                'class_days' => 'Tuesday, Thursday',
-                'morning_schedule' => null,
-                'afternoon_schedule' => '15:00-16:30',
+                'age_range' => '9+',
                 'instructor_id' => 21,
                 'location_id' => 1,
-                'category_id' => 3
+                'category_id' => 1
             ],
             [
-                'name' => 'Cinematography',
+                'name' => 'Declamación',
                 'monthly_cost' => 30,
-                'age_range' => '12+',
-                'class_days' => 'Monday, Wednesday',
-                'morning_schedule' => null,
-                'afternoon_schedule' => '16:30-18:00',
+                'age_range' => '8+',
                 'instructor_id' => 22,
                 'location_id' => 1,
-                'category_id' => 3
+                'category_id' => 1
             ],
             [
-                'name' => 'Drawing',
-                'monthly_cost' => 30,
-                'age_range' => '6+',
-                'class_days' => 'Tuesday, Thursday',
-                'morning_schedule' => null,
-                'afternoon_schedule' => '15:00-16:30',
-                'instructor_id' => 23,
-                'location_id' => 1,
-                'category_id' => 3
-            ],
-            [
-                'name' => 'Calligraphy',
-                'monthly_cost' => 30,
-                'age_range' => '6+',
-                'class_days' => 'Monday, Wednesday',
-                'morning_schedule' => null,
-                'afternoon_schedule' => '16:30-18:00',
-                'instructor_id' => 24,
-                'location_id' => 1,
-                'category_id' => 3
-            ],
-            [
-                'name' => 'Declamation',
-                'monthly_cost' => 30,
-                'age_range' => '6+',
-                'class_days' => 'Tuesday, Thursday',
-                'morning_schedule' => null,
-                'afternoon_schedule' => '16:30-18:00',
-                'instructor_id' => 25,
-                'location_id' => 1,
-                'category_id' => 3
-            ],
-            [
-                'name' => 'Creative Writing',
+                'name' => 'Escritura Creativa',
                 'monthly_cost' => 30,
                 'age_range' => '12+',
-                'class_days' => 'Monday, Wednesday',
-                'morning_schedule' => null,
-                'afternoon_schedule' => '15:00-16:30',
-                'instructor_id' => 26,
+                'instructor_id' => 23,
                 'location_id' => 1,
-                'category_id' => 3
+                'category_id' => 1
             ],
             [
-                'name' => 'Chess',
+                'name' => 'Ajedrez',
                 'monthly_cost' => 30,
-                'age_range' => '6+',
-                'class_days' => 'Tuesday, Thursday',
-                'morning_schedule' => null,
-                'afternoon_schedule' => '15:00-16:30',
-                'instructor_id' => 27,
+                'age_range' => '5+',
+                'instructor_id' => 24,
                 'location_id' => 1,
-                'category_id' => 3
+                'category_id' => 1
             ],
             [
-                'name' => 'Introduction to Kichwa',
+                'name' => 'Introducción al Kichwa',
                 'monthly_cost' => 30,
-                'age_range' => 'All ages',
-                'class_days' => 'Monday, Wednesday',
-                'morning_schedule' => null,
-                'afternoon_schedule' => '16:30-18:00',
-                'instructor_id' => 28,
+                'age_range' => '10+',
+                'instructor_id' => 25,
                 'location_id' => 1,
-                'category_id' => 3
-            ],
+                'category_id' => 1
+            ]
         ];
 
         foreach ($workshops as $workshop) {

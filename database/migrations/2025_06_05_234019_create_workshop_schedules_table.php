@@ -12,7 +12,7 @@ return new class extends Migration {
     {
         Schema::create('workshop_schedules', function (Blueprint $table) {
             $table->id();
-            $table->enum('day_of_week', ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']);
+            $table->enum('day_of_week', ['Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes', 'Sabado', 'Domingo']);
             $table->time('start_time');
             $table->time('end_time');
             $table->foreignId('workshop_id')->constrained('workshops')->onDelete('cascade');

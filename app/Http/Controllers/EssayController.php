@@ -2,26 +2,26 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Rehearsal;
+use App\Models\Essay;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
-class RehearsalController extends Controller
+class EssayController extends Controller
 {
     public function index(): JsonResponse
     {
         try {
-            $rehearsals = Rehearsal::with('location')->get();
+            $Essays = Essay::with('location')->get();
 
             return response()->json([
                 'status' => true,
-                'rehearsals' => $rehearsals
+                'Essays' => $Essays
             ]);
         } catch (\Exception $e) {
             return response()->json([
                 'status' => false,
-                'message' => 'Error getting rehearsals',
+                'message' => 'Error getting Essays',
                 'error' => $e->getMessage()
             ], 500);
         }
@@ -45,17 +45,17 @@ class RehearsalController extends Controller
         }
 
         try {
-            $rehearsal = Rehearsal::create($request->all());
+            $Essay = Essay::create($request->all());
 
             return response()->json([
                 'status' => true,
-                'message' => 'Rehearsal created successfully',
-                'rehearsal' => $rehearsal->load('location')
+                'message' => 'Essay created successfully',
+                'Essay' => $Essay->load('location')
             ], 201);
         } catch (\Exception $e) {
             return response()->json([
                 'status' => false,
-                'message' => 'Error creating rehearsal',
+                'message' => 'Error creating Essay',
                 'error' => $e->getMessage()
             ], 500);
         }
@@ -64,16 +64,16 @@ class RehearsalController extends Controller
     public function show($id): JsonResponse
     {
         try {
-            $rehearsal = Rehearsal::with('location')->findOrFail($id);
+            $Essay = Essay::with('location')->findOrFail($id);
 
             return response()->json([
                 'status' => true,
-                'rehearsal' => $rehearsal
+                'Essay' => $Essay
             ]);
         } catch (\Exception $e) {
             return response()->json([
                 'status' => false,
-                'message' => 'Rehearsal not found'
+                'message' => 'Essay not found'
             ], 404);
         }
     }
@@ -96,18 +96,18 @@ class RehearsalController extends Controller
         }
 
         try {
-            $rehearsal = Rehearsal::findOrFail($id);
-            $rehearsal->update($request->all());
+            $Essay = Essay::findOrFail($id);
+            $Essay->update($request->all());
 
             return response()->json([
                 'status' => true,
-                'message' => 'Rehearsal updated successfully',
-                'rehearsal' => $rehearsal->load('location')
+                'message' => 'Essay updated successfully',
+                'Essay' => $Essay->load('location')
             ]);
         } catch (\Exception $e) {
             return response()->json([
                 'status' => false,
-                'message' => 'Error updating rehearsal',
+                'message' => 'Error updating Essay',
                 'error' => $e->getMessage()
             ], 500);
         }
@@ -116,17 +116,17 @@ class RehearsalController extends Controller
     public function destroy($id): JsonResponse
     {
         try {
-            $rehearsal = Rehearsal::findOrFail($id);
-            $rehearsal->delete();
+            $Essay = Essay::findOrFail($id);
+            $Essay->delete();
 
             return response()->json([
                 'status' => true,
-                'message' => 'Rehearsal deleted successfully'
+                'message' => 'Essay deleted successfully'
             ]);
         } catch (\Exception $e) {
             return response()->json([
                 'status' => false,
-                'message' => 'Error deleting rehearsal',
+                'message' => 'Error deleting Essay',
                 'error' => $e->getMessage()
             ], 500);
         }
@@ -147,18 +147,18 @@ class RehearsalController extends Controller
         }
 
         try {
-            $rehearsals = Rehearsal::with('location')
+            $Essays = Essay::with('location')
                 ->whereBetween('date', [$request->start_date, $request->end_date])
                 ->get();
 
             return response()->json([
                 'status' => true,
-                'rehearsals' => $rehearsals
+                'Essays' => $Essays
             ]);
         } catch (\Exception $e) {
             return response()->json([
                 'status' => false,
-                'message' => 'Error filtering rehearsals',
+                'message' => 'Error filtering Essays',
                 'error' => $e->getMessage()
             ], 500);
         }

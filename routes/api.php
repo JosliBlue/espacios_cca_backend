@@ -8,21 +8,9 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\LocationController;
 use App\Http\Controllers\InstructorController;
 use App\Http\Controllers\WorkshopController;
-use App\Http\Controllers\EventPostController;
-use App\Http\Controllers\CulturalCenterController;
-use App\Http\Controllers\RehearsalController;
-use App\Http\Controllers\WorkshopScheduleController;
-
-/*
-|--------------------------------------------------------------------------
-| API Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register API routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| is assigned the "api" middleware group. Enjoy building your API!
-|
-*/
+use App\Http\Controllers\PostEventController;
+use App\Http\Controllers\SpaceReservationController;
+use App\Http\Controllers\EssayController;
 
 // Public Authentication
 Route::post('/register', [AuthController::class, 'register']);
@@ -73,31 +61,31 @@ Route::middleware([IsUserAuth::class])->group(function () {
     });
 
     // Event Posts
-    Route::prefix('event-posts')->group(function () {
-        Route::get('/', [EventPostController::class, 'index']);
-        Route::post('/', [EventPostController::class, 'store']);
-        Route::get('/{id}', [EventPostController::class, 'show']);
-        Route::put('/{id}', [EventPostController::class, 'update']);
-        Route::delete('/{id}', [EventPostController::class, 'destroy']);
+    Route::prefix('post-events')->group(function () {
+        Route::get('/', [PostEventController::class, 'index']);
+        Route::post('/', [PostEventController::class, 'store']);
+        Route::get('/{id}', [PostEventController::class, 'show']);
+        Route::put('/{id}', [PostEventController::class, 'update']);
+        Route::delete('/{id}', [PostEventController::class, 'destroy']);
     });
 
-    // Cultural Centers
-    Route::prefix('cultural-centers')->group(function () {
-        Route::get('/', [CulturalCenterController::class, 'index']);
-        Route::post('/', [CulturalCenterController::class, 'store']);
-        Route::get('/{id}', [CulturalCenterController::class, 'show']);
-        Route::put('/{id}', [CulturalCenterController::class, 'update']);
-        Route::delete('/{id}', [CulturalCenterController::class, 'destroy']);
-        Route::post('/filter-by-state', [CulturalCenterController::class, 'filterByState']);
+    // space reservations
+    Route::prefix('space-reservations')->group(function () {
+        Route::get('/', [SpaceReservationController::class, 'index']);
+        Route::post('/', [SpaceReservationController::class, 'store']);
+        Route::get('/{id}', [SpaceReservationController::class, 'show']);
+        Route::put('/{id}', [SpaceReservationController::class, 'update']);
+        Route::delete('/{id}', [SpaceReservationController::class, 'destroy']);
+        Route::post('/filter-by-state', [SpaceReservationController::class, 'filterByState']);
     });
 
-    // Rehearsals
-    Route::prefix('rehearsals')->group(function () {
-        Route::get('/', [RehearsalController::class, 'index']);
-        Route::post('/', [RehearsalController::class, 'store']);
-        Route::get('/{id}', [RehearsalController::class, 'show']);
-        Route::put('/{id}', [RehearsalController::class, 'update']);
-        Route::delete('/{id}', [RehearsalController::class, 'destroy']);
-        Route::post('/filter-by-date', [RehearsalController::class, 'filterByDate']);
+    // Essays
+    Route::prefix('essays')->group(function () {
+        Route::get('/', [EssayController::class, 'index']);
+        Route::post('/', [EssayController::class, 'store']);
+        Route::get('/{id}', [EssayController::class, 'show']);
+        Route::put('/{id}', [EssayController::class, 'update']);
+        Route::delete('/{id}', [EssayController::class, 'destroy']);
+        Route::post('/filter-by-date', [EssayController::class, 'filterByDate']);
     });
 });

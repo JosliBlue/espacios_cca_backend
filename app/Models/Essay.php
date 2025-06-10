@@ -5,18 +5,18 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Rehearsal extends Model
+class Essay extends Model
 {
     use HasFactory;
 
-    protected $table = 'rehearsals';
+    protected $table = 'essays';
 
     protected $fillable = [
         'name',
-        'location_id',
         'date',
         'start_time',
-        'end_time'
+        'end_time',
+        'location_id'
     ];
 
     protected $casts = [

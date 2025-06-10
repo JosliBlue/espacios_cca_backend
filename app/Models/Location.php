@@ -21,15 +21,15 @@ class Location extends Model
         return $this->hasMany(Workshop::class, 'location_id');
     }
 
-    // Cultural center events relationship
-    public function culturalCenterEvents()
+    // space reservation events relationship
+    public function SpaceReservationEvents()
     {
-        return $this->hasMany(CulturalCenter::class, 'location');
+        return $this->hasMany(SpaceReservation::class, 'location');
     }
 
-    // Rehearsals relationship
-    public function rehearsals()
+    // Essays relationship
+    public function Essays()
     {
-        return $this->hasMany(Rehearsal::class, 'location_id');
+        return $this->hasMany(Essay::class, 'location_id');
     }
 }

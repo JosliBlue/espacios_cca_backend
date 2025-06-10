@@ -5,19 +5,19 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class CulturalCenter extends Model
+class SpaceReservation extends Model
 {
     use HasFactory;
-    protected $table = 'cultural_centers';
+    protected $table = 'space_reservations';
     public $timestamps = false;
     // Status constants
-    public const STATUS_APPROVED = 'Approved';
-    public const STATUS_REJECTED = 'Rejected';
-    public const STATUS_PENDING = 'Pending';
+    public const STATUS_APPROVED = 'Aprobado';
+    public const STATUS_REJECTED = 'Rechazado';
+    public const STATUS_PENDING = 'Pendiente';
 
     // Event type constants
-    public const EVENT_FREE = 'Free';
-    public const EVENT_PAID = 'Paid';
+    public const EVENT_FREE = 'Gratuito';
+    public const EVENT_PAID = 'Pagado';
 
     protected $fillable = [
         'name',
@@ -30,7 +30,7 @@ class CulturalCenter extends Model
         'reserved',
         'status',
         'agreement_signed',
-        'official_document_delivered',
+        'delivery_document',
         'event',
         'location',
         'category',
@@ -41,7 +41,7 @@ class CulturalCenter extends Model
         'contract_reception_signed' => 'boolean',
         'reserved' => 'boolean',
         'agreement_signed' => 'boolean',
-        'official_document_delivered' => 'boolean',
+        'delivery_document' => 'boolean',
         'date' => 'date',
         'start_time' => 'datetime:H:i',
         'end_time' => 'datetime:H:i'
@@ -60,8 +60,8 @@ class CulturalCenter extends Model
     }
 
     // Event post relationship
-    public function eventPost()
+    public function postEvent()
     {
-        return $this->belongsTo(EventPost::class, 'event_post');
+        return $this->belongsTo(PostEvent::class, 'event_post');
     }
 }

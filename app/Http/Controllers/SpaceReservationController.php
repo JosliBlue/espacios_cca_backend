@@ -2,29 +2,29 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\CulturalCenter;
-use App\Models\EventPost;
+use App\Models\SpaceReservation;
+use App\Models\PostEvent;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
-class CulturalCenterController extends Controller
+class SpaceReservationController extends Controller
 {
     public function index(): JsonResponse
     {
         try {
-            $culturalCenters = CulturalCenter::with(['location', 'category', 'eventPost'])
+            $SpaceReservations = SpaceReservation::with(['location', 'category', 'postEvent'])
                 ->orderBy('date', 'asc')
                 ->get();
 
             return response()->json([
                 'status' => true,
-                'cultural_centers' => $culturalCenters
+                'space_reservations' => $SpaceReservations
             ]);
         } catch (\Exception $e) {
             return response()->json([
                 'status' => false,
-                'message' => 'Error getting cultural centers',
+                'message' => 'Error getting space reservations',
                 'error' => $e->getMessage()
             ], 500);
         }
@@ -41,10 +41,10 @@ class CulturalCenterController extends Controller
             'responsible_person_phone' => 'required|string|size:10',
             'contract_reception_signed' => 'boolean',
             'reserved' => 'boolean',
-            'status' => 'required|string|in:Approved,Rejected,Pending',
+            'status' => 'required|string|in:Aprobado,Rechazado,Pendiente',
             'agreement_signed' => 'boolean',
-            'official_document_delivered' => 'boolean',
-            'event' => 'required|string|in:Free,Paid',
+            'delivery_document' => 'boolean',
+            'event' => 'required|string|in:Gratuito,Pagado',
             'location' => 'required|exists:locations,id',
             'category' => 'required|exists:categories,id'
             // CHANGED TO NOT SEND POST EVENT ID
@@ -60,27 +60,27 @@ class CulturalCenterController extends Controller
 
         try {
             // Create post event first with zero values
-            $eventPost = EventPost::create([
+            $postEvent = PostEvent::create([
                 'children_attended' => 0,
                 'youth_attended' => 0,
                 'adults_attended' => 0
             ]);
 
-            // Add post event id to cultural center data
+            // Add post event id to space reservation data
             $requestData = $request->all();
-            $requestData['event_post'] = $eventPost->id;
+            $requestData['event_post'] = $postEvent->id;
 
-            $culturalCenter = CulturalCenter::create($requestData);
+            $SpaceReservation = SpaceReservation::create($requestData);
 
             return response()->json([
                 'status' => true,
-                'message' => 'Cultural center created successfully',
-                'cultural_center' => $culturalCenter->load(['location', 'category', 'eventPost'])
+                'message' => 'space reservation created successfully',
+                'space_reservation' => $SpaceReservation->load(['location', 'category', 'postEvent'])
             ], 201);
         } catch (\Exception $e) {
             return response()->json([
                 'status' => false,
-                'message' => 'Error creating cultural center',
+                'message' => 'Error creating space reservation',
                 'error' => $e->getMessage()
             ], 500);
         }
@@ -89,16 +89,16 @@ class CulturalCenterController extends Controller
     public function show($id): JsonResponse
     {
         try {
-            $culturalCenter = CulturalCenter::with(['location', 'category', 'eventPost'])->findOrFail($id);
+            $SpaceReservation = SpaceReservation::with(['location', 'category', 'postEvent'])->findOrFail($id);
 
             return response()->json([
                 'status' => true,
-                'cultural_center' => $culturalCenter
+                'space_reservation' => $SpaceReservation
             ]);
         } catch (\Exception $e) {
             return response()->json([
                 'status' => false,
-                'message' => 'Cultural center not found'
+                'message' => 'space reservation not found'
             ], 404);
         }
     }
@@ -132,18 +132,18 @@ class CulturalCenterController extends Controller
         }
 
         try {
-            $culturalCenter = CulturalCenter::findOrFail($id);
-            $culturalCenter->update($request->all());
+            $SpaceReservation = SpaceReservation::findOrFail($id);
+            $SpaceReservation->update($request->all());
 
             return response()->json([
                 'status' => true,
-                'message' => 'Cultural center updated successfully',
-                'cultural_center' => $culturalCenter->load(['location', 'category', 'eventPost'])
+                'message' => 'space reservation updated successfully',
+                'space_reservation' => $SpaceReservation->load(['location', 'category', 'postEvent'])
             ]);
         } catch (\Exception $e) {
             return response()->json([
                 'status' => false,
-                'message' => 'Error updating cultural center',
+                'message' => 'Error updating space reservation',
                 'error' => $e->getMessage()
             ], 500);
         }
@@ -152,17 +152,17 @@ class CulturalCenterController extends Controller
     public function destroy($id): JsonResponse
     {
         try {
-            $culturalCenter = CulturalCenter::findOrFail($id);
-            $culturalCenter->delete();
+            $SpaceReservation = SpaceReservation::findOrFail($id);
+            $SpaceReservation->delete();
 
             return response()->json([
                 'status' => true,
-                'message' => 'Cultural center deleted successfully'
+                'message' => 'space reservation deleted successfully'
             ]);
         } catch (\Exception $e) {
             return response()->json([
                 'status' => false,
-                'message' => 'Error deleting cultural center',
+                'message' => 'Error deleting space reservation',
                 'error' => $e->getMessage()
             ], 500);
         }
@@ -182,18 +182,18 @@ class CulturalCenterController extends Controller
         }
 
         try {
-            $culturalCenters = CulturalCenter::with(['location', 'category', 'eventPost'])
+            $SpaceReservations = SpaceReservation::with(['location', 'category', 'postEvent'])
                 ->where('status', $request->status)
                 ->get();
 
             return response()->json([
                 'status' => true,
-                'cultural_centers' => $culturalCenters
+                'space_reservations' => $SpaceReservations
             ]);
         } catch (\Exception $e) {
             return response()->json([
                 'status' => false,
-                'message' => 'Error filtering cultural centers',
+                'message' => 'Error filtering space reservations',
                 'error' => $e->getMessage()
             ], 500);
         }

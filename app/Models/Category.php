@@ -21,9 +21,9 @@ class Category extends Model
         return $this->hasMany(Workshop::class, 'category_id');
     }
 
-    // Cultural center events relationship
-    public function culturalCenterEvents()
+    // space reservation events relationship
+    public function SpaceReservationEvents()
     {
-        return $this->hasMany(CulturalCenter::class, 'category');
+        return $this->hasMany(SpaceReservation::class, 'category');
     }
 }
