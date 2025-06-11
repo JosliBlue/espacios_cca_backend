@@ -16,10 +16,10 @@ class ScheduleController extends Controller
         $days = [
             'Monday' => 'Lunes',
             'Tuesday' => 'Martes',
-            'Wednesday' => 'Miercoles',
+            'Wednesday' => 'Miércoles',
             'Thursday' => 'Jueves',
             'Friday' => 'Viernes',
-            'Saturday' => 'Sabado',
+            'Saturday' => 'Sábado',
             'Sunday' => 'Domingo'
         ];
         return $days[$date->format('l')];

@@ -31,10 +31,10 @@ class SpaceReservation extends Model
         'status',
         'agreement_signed',
         'delivery_document',
-        'event',
+        'event_type',
         'location_id',
         'category_id',
-        'event_post_id'
+        'post_event_id'
     ];
 
     protected $casts = [

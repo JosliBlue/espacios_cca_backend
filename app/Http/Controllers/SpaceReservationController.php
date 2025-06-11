@@ -44,9 +44,9 @@ class SpaceReservationController extends Controller
             'status' => 'required|string|in:Aprobado,Rechazado,Pendiente',
             'agreement_signed' => 'boolean',
             'delivery_document' => 'boolean',
-            'event' => 'required|string|in:Gratuito,Pagado',
-            'location' => 'required|exists:locations,id',
-            'category' => 'required|exists:categories,id'
+            'event_type' => 'required|string|in:Gratuito,Pagado',
+            'location_id' => 'required|exists:locations,id',
+            'category_id' => 'required|exists:categories,id'
             // CHANGED TO NOT SEND POST EVENT ID
             //'event_post_id' => 'nullable|exists:event_posts,id'
         ]);
@@ -68,7 +68,7 @@ class SpaceReservationController extends Controller
 
             // Add post event id to space reservation data
             $requestData = $request->all();
-            $requestData['event_post'] = $postEvent->id;
+            $requestData['post_event_id'] = $postEvent->id;
 
             $SpaceReservation = SpaceReservation::create($requestData);
 
@@ -114,12 +114,12 @@ class SpaceReservationController extends Controller
             'responsible_person_phone' => 'required|string|size:10',
             'contract_reception_signed' => 'boolean',
             'reserved' => 'boolean',
-            'status' => 'required|string|in:Approved,Rejected,Pending',
+            'status' => 'required|string|in:Aprobado,Rechazado,Pendiente',
             'agreement_signed' => 'boolean',
             'official_document_delivered' => 'boolean',
-            'event' => 'required|string|in:Free,Paid',
-            'location' => 'required|exists:locations,id',
-            'category' => 'required|exists:categories,id'
+            'event_type' => 'required|string|in:Gratuito,Pagado',
+            'location_id' => 'required|exists:locations,id',
+            'category_id' => 'required|exists:categories,id'
             // CHANGED TO NOT SEND POST EVENT ID
             //'event_post' => 'nullable|exists:event_posts,id'
         ]);
