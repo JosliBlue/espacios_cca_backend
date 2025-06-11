@@ -12,11 +12,22 @@ class WorkshopController extends Controller
     public function index(): JsonResponse
     {
         try {
-            $workshops = Workshop::with(['instructor', 'location', 'category'])->get();
+            $workshops = Workshop::with(['instructor', 'location', 'category', 'schedules'])->get();
 
             return response()->json([
                 'status' => true,
-                'workshops' => $workshops
+                'workshops' => $workshops->map(function ($workshop) {
+                    return [
+                        'id' => $workshop->id,
+                        'name' => $workshop->name,
+                        'monthly_cost' => $workshop->monthly_cost,
+                        'age_range' => $workshop->age_range,
+                        'instructor' => $workshop->instructor,
+                        'location' => $workshop->location,
+                        'category' => $workshop->category,
+                        'workshop_schedules' => $workshop->schedules
+                    ];
+                })
             ]);
         } catch (\Exception $e) {
             return response()->json([
@@ -66,11 +77,20 @@ class WorkshopController extends Controller
     public function show($id): JsonResponse
     {
         try {
-            $workshop = Workshop::with(['instructor', 'location', 'category'])->findOrFail($id);
+            $workshop = Workshop::with(['instructor', 'location', 'category', 'schedules'])->findOrFail($id);
 
             return response()->json([
                 'status' => true,
-                'workshop' => $workshop
+                'workshop' => [
+                    'id' => $workshop->id,
+                    'name' => $workshop->name,
+                    'monthly_cost' => $workshop->monthly_cost,
+                    'age_range' => $workshop->age_range,
+                    'instructor' => $workshop->instructor,
+                    'location' => $workshop->location,
+                    'category' => $workshop->category,
+                    'workshop_schedules' => $workshop->schedules
+                ]
             ]);
         } catch (\Exception $e) {
             return response()->json([
