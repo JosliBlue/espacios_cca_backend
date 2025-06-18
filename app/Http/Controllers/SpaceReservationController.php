@@ -40,7 +40,6 @@ class SpaceReservationController extends Controller
             'responsible_person' => 'required|string|max:255',
             'responsible_person_phone' => 'required|string|size:10',
             'contract_reception_signed' => 'boolean',
-            'reserved' => 'boolean',
             'status' => 'required|string|in:Aprobado,Rechazado,Pendiente',
             'agreement_signed' => 'boolean',
             'delivery_document' => 'boolean',
@@ -113,10 +112,9 @@ class SpaceReservationController extends Controller
             'responsible_person' => 'required|string|max:255',
             'responsible_person_phone' => 'required|string|size:10',
             'contract_reception_signed' => 'boolean',
-            'reserved' => 'boolean',
             'status' => 'required|string|in:Aprobado,Rechazado,Pendiente',
             'agreement_signed' => 'boolean',
-            'official_document_delivered' => 'boolean',
+            'delivery_document' => 'boolean',
             'event_type' => 'required|string|in:Gratuito,Pagado',
             'location_id' => 'required|exists:locations,id',
             'category_id' => 'required|exists:categories,id'
@@ -171,7 +169,7 @@ class SpaceReservationController extends Controller
     public function filterByState(Request $request): JsonResponse
     {
         $validator = Validator::make($request->all(), [
-            'status' => 'required|boolean'
+            'status' => 'required|string|in:Aprobado,Rechazado,Pendiente'
         ]);
 
         if ($validator->fails()) {

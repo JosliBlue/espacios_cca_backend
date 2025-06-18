@@ -19,7 +19,8 @@ return new class extends Migration {
             $table->string('responsible_person');
             $table->char('responsible_person_phone', 10);
             $table->boolean('contract_reception_signed');
-            $table->boolean('reserved');
+            //REMOVIDO
+            //$table->boolean('reserved');
             $table->enum('status', ['Aprobado', 'Rechazado', 'Pendiente']);
             $table->boolean('agreement_signed');
             $table->boolean('delivery_document');

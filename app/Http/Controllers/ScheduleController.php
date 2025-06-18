@@ -32,12 +32,14 @@ class ScheduleController extends Controller
 
         $reservations = SpaceReservation::where('location_id', $placeId)
             ->whereBetween('date', [$start, $end])
+            ->whereIn('status', [SpaceReservation::STATUS_APPROVED, SpaceReservation::STATUS_PENDING])
             ->select(
                 'id',
                 'name',
                 'date',
                 'start_time',
                 'end_time',
+                'status',
                 DB::raw("'space_reservation' as type")
             )
             ->get()
@@ -48,6 +50,7 @@ class ScheduleController extends Controller
                     'date' => Carbon::parse($reservation->date)->format('Y-m-d'),
                     'start_time' => $reservation->start_time->format('H:i'),
                     'end_time' => $reservation->end_time->format('H:i'),
+                    'status' => $reservation->status,
                     'type' => $reservation->type,
                 ];
             });
@@ -104,6 +107,7 @@ class ScheduleController extends Controller
         // Check space reservations
         $hasReservation = SpaceReservation::where('location_id', $placeId)
             ->where('date', $date)
+            ->whereIn('status', [SpaceReservation::STATUS_APPROVED, SpaceReservation::STATUS_PENDING])
             ->where(function ($query) use ($startTime, $endTime) {
                 $query->where(function ($q) use ($startTime) {
                     $q->where('start_time', '<=', $startTime)
@@ -142,5 +146,32 @@ class ScheduleController extends Controller
             ->exists();
 
         return response()->json(['available' => ! $hasWorkshop]);
+    }
+
+    public function rejectReservation($reservationId)
+    {
+        try {
+            $reservation = SpaceReservation::findOrFail($reservationId);
+
+            $reservation->status = SpaceReservation::STATUS_REJECTED;
+            $reservation->save();
+
+            return response()->json([
+                'success' => true,
+                'message' => 'Reserva rechazada exitosamente',
+                'data' => [
+                    'id' => $reservation->id,
+                    'name' => $reservation->name,
+                    'status' => $reservation->status
+                ]
+            ], 200);
+
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Error al rechazar la reserva',
+                'error' => $e->getMessage()
+            ], 500);
+        }
     }
 }

@@ -94,4 +94,9 @@ Route::middleware([IsUserAuth::class])->group(function () {
         Route::get('/{placeId}/occupied', [ScheduleController::class, 'getOccupiedSchedules']);
         Route::post('/{placeId}/check-availability', [ScheduleController::class, 'checkAvailability']);
     });
+
+    // Reservation Management
+    Route::prefix('reservations')->group(function () {
+        Route::put('/{reservationId}/reject', [ScheduleController::class, 'rejectReservation']);
+    });
 });
