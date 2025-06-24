@@ -47,7 +47,7 @@ class ScheduleController extends Controller
                 return [
                     'id' => $reservation->id,
                     'name' => $reservation->name,
-                    'date' => Carbon::parse($reservation->date)->format('Y-m-d'),
+                    'date' => Carbon::parse((string) $reservation->date)->format('Y-m-d'),
                     'start_time' => $reservation->start_time->format('H:i'),
                     'end_time' => $reservation->end_time->format('H:i'),
                     'status' => $reservation->status,
@@ -97,18 +97,28 @@ class ScheduleController extends Controller
         $request->validate([
             'date' => 'required|date_format:Y-m-d',
             'startTime' => 'required|date_format:H:i:s',
-            'endTime' => 'required|date_format:H:i:s'
+            'endTime' => 'required|date_format:H:i:s',
+            'excludeReservationId' => 'nullable|integer|exists:space_reservations,id',
+            'excludeWorkshopId' => 'nullable|integer|exists:workshops,id'
         ]);
 
         $date = $request->input('date');
         $startTime = $request->input('startTime');
         $endTime = $request->input('endTime');
+        $excludeReservationId = $request->input('excludeReservationId');
+        $excludeWorkshopId = $request->input('excludeWorkshopId');
 
         // Check space reservations
-        $hasReservation = SpaceReservation::where('location_id', $placeId)
+        $reservationQuery = SpaceReservation::where('location_id', $placeId)
             ->where('date', $date)
-            ->whereIn('status', [SpaceReservation::STATUS_APPROVED, SpaceReservation::STATUS_PENDING])
-            ->where(function ($query) use ($startTime, $endTime) {
+            ->whereIn('status', [SpaceReservation::STATUS_APPROVED, SpaceReservation::STATUS_PENDING]);
+
+        // Exclude specific reservation if provided
+        if ($excludeReservationId) {
+            $reservationQuery->where('id', '!=', $excludeReservationId);
+        }
+
+        $hasReservation = $reservationQuery->where(function ($query) use ($startTime, $endTime) {
                 $query->where(function ($q) use ($startTime) {
                     $q->where('start_time', '<=', $startTime)
                         ->where('end_time', '>', $startTime);
@@ -128,10 +138,16 @@ class ScheduleController extends Controller
 
         // Check workshop schedules
         $dayOfWeek = $this->getDayInSpanish(Carbon::createFromFormat('Y-m-d', $date));
-        $hasWorkshop = WorkshopSchedule::join('workshops', 'workshop_schedules.workshop_id', '=', 'workshops.id')
+        $workshopQuery = WorkshopSchedule::join('workshops', 'workshop_schedules.workshop_id', '=', 'workshops.id')
             ->where('workshops.location_id', $placeId)
-            ->where('workshop_schedules.day_of_week', $dayOfWeek)
-            ->where(function ($query) use ($startTime, $endTime) {
+            ->where('workshop_schedules.day_of_week', $dayOfWeek);
+
+        // Exclude specific workshop if provided
+        if ($excludeWorkshopId) {
+            $workshopQuery->where('workshops.id', '!=', $excludeWorkshopId);
+        }
+
+        $hasWorkshop = $workshopQuery->where(function ($query) use ($startTime, $endTime) {
                 $query->where(function ($q) use ($startTime) {
                     $q->where('workshop_schedules.start_time', '<=', $startTime)
                         ->where('workshop_schedules.end_time', '>', $startTime);
