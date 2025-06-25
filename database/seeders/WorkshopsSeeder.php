@@ -14,17 +14,14 @@ class WorkshopsSeeder extends Seeder
     {
         // Seed categories
         $categories = [
-            ['name' => 'Dance and Theater'],
-            ['name' => 'Music'],
-            ['name' => 'Education, Arts and Technology'],
+            ['name' => 'Danza y teatro'],
+            ['name' => 'Musica'],
+            ['name' => 'Educacion, arte y tecnologia'],
         ];
 
         foreach ($categories as $category) {
             Category::create($category);
         }
-
-        // Seed locations (assuming one location for all workshops)
-        $location = Location::create(['name' => 'space reservation']);
 
         // Seed instructors
         $instructors = [
