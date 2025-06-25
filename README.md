@@ -1,66 +1,153 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+<div align="center">
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+<img src="./public/img/Ambato.png" width="100" alt="Ambato imagen" />
 
-## About Laravel
+### *Proyecto para gestion de espacios de la Casa de la cultura de Ambato*
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+*API REST para la gestión de espacios, talleres y eventos*
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+---
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+![Laravel](https://img.shields.io/badge/Laravel-11.x-FF2D20?logo=laravel&logoColor=white)
+![PHP](https://img.shields.io/badge/PHP-8.2+-777BB4?logo=php&logoColor=white)
+![MySQL](https://img.shields.io/badge/MySQL-8.0+-4479A1?logo=mysql&logoColor=white)
+![JWT](https://img.shields.io/badge/JWT-Auth-000000?logo=jsonwebtokens&logoColor=white)
 
-## Learning Laravel
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+</div>
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+---
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+## 📚 Índice
 
-## Laravel Sponsors
+- [Equipo de desarrollo](#-equipo-de-desarrollo)
+- [Características](#-características)
+- [Creación de la base de datos](#-creación-de-la-base-de-datos)
+- [Instalación rápida](#-instalación-rápida)
+- [Comandos útiles](#-comandos-útiles)
+- [Configuración recomendada](#-configuración-recomendada)
+- [Estructura del proyecto](#-estructura-del-proyecto)
+- [Notas finales](#-notas-finales)
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+---
 
-### Premium Partners
+## 👥 Equipo de desarrollo
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+<div align="center">
 
-## Contributing
+| **Desarrollador** | **Rol** | **GitHub** |
+|:-----------------:|:-------:|:----------:|
+| **Elías** | Backend & API | [@JosliBlue](https://github.com/JosliBlue/) |
+| **Alex** | FullStack | [@IAlexLizano](https://github.com/IAlexLizano) |
+| **Oscar** | Frontend | [@OscarJRM](https://github.com/OscarJRM) |
+</div>
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+---
 
-## Code of Conduct
+## ✨ Características
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+-   ✅ Autenticación JWT completa
+-   📝 Gestión completa de talleres, reservas, instructores, ensayos ubicaciones, eventos y horarios
+-   📊 API REST bien documentada con Scramble(en modo desarrollador)
 
-## Security Vulnerabilities
+---
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+## 🗄️ Creación de la base de datos
 
-## License
+> 🏗️ **¡Un paso y listo!**
+>
+> Crea una base de datos llamada **spaces_cca** con cotejamiento **utf8mb4_unicode_ci** antes de migrar 🚦. Así tendrás soporte para todos los caracteres y emojis que necesites.
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+---
+
+## 🚀 Instalación rápida
+
+```bash
+# 1. Clona el repositorio
+$ git clone <url-del-repo>
+$ cd espacios_cca_backend
+
+# 2. Instala dependencias PHP
+$ composer install
+
+# 3. Configura tu entorno
+$ cp .env.example .env
+# Edita .env con tus credenciales de la bd creada
+
+# 4. Genera claves y configura JWT
+$ php artisan key:generate
+$ php artisan jwt:secret
+
+# 5. Migra y llena la base de datos con lo basico
+$ php artisan migrate --seed
+
+# 6. (Opcional) Publica configuraciones JWT
+$ php artisan vendor:publish --provider="PHPOpenSourceSaver\JWTAuth\Providers\LaravelServiceProvider"
+```
+
+<div align="center">
+  <strong>¡ARRANCA LA API EN TU NAVEGADOR!</strong>
+</div>
+
+```sh
+php artisan serve
+```
+
+<span style="font-size:1.1em; color:#4CAF50;">Accede a <b>http://127.0.0.1:8000</b> para ver la API en acción 🚀</span>
+
+---
+
+## 🧹 Comandos útiles
+
+-   Limpiar cachés de Laravel:
+    ```sh
+    php artisan config:clear && php artisan route:clear && php artisan view:clear && php artisan cache:clear
+    ```
+-   Limpiar caché de Composer:
+    ```sh
+    composer dump-autoload
+    ```
+---
+
+## ⚙️ Configuración recomendada
+
+### Variables de Entorno Principales
+```env
+APP_NAME=Espacios_cca_backend
+APP_ENV=local
+APP_TIMEZONE=America/Guayaquil
+APP_LOCALE=es_EC
+
+# Base de datos
+DB_CONNECTION=mysql
+DB_DATABASE=spaces_cca
+DB_USERNAME=root
+DB_PASSWORD=root
+
+# JWT Configuration
+JWT_SECRET=your-jwt-secret
+JWT_ALGO=HS256
+```
+---
+
+## 📦 Estructura del proyecto
+
+```text
+espacios_cca_backend/
+├── app/
+│   ├── Models/           # Modelos Eloquent (Workshop, SpaceReservation, etc.)
+│   └── Http/Controllers/ # Lógica de negocio y endpoints API
+├── database/
+│   ├── migrations/       # Migraciones de tablas
+│   └── seeders/          # Datos de ejemplo
+├── routes/api.php        # Rutas de la API REST
+├── config/               # Configuraciones (JWT, database, etc.)
+└── ...
+```
+
+---
+
+## 💡 Notas finales
+
+-   Documentación interactiva disponible en `/docs/api` (cuando esta en desarrollo).
+-   Si tienes problemas, limpia cachés y revisa  `.env`.
