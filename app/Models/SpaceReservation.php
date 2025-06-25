@@ -27,8 +27,6 @@ class SpaceReservation extends Model
         'responsible_person',
         'responsible_person_phone',
         'contract_reception_signed',
-        //removido
-        // 'reserved',
         'status',
         'agreement_signed',
         'delivery_document',

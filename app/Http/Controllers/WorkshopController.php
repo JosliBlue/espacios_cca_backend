@@ -46,14 +46,13 @@ class WorkshopController extends Controller
             'name' => 'required|string|max:255',
             'monthly_cost' => 'required|numeric',
             'age_range' => 'required|string|max:50',
-            'class_days' => 'required|string',
             'instructor_id' => 'required|exists:instructors,id',
             'location_id' => 'required|exists:locations,id',
             'category_id' => 'required|exists:categories,id',
             'schedules' => 'required|array|min:1',
             'schedules.*.day_of_week' => 'required|string|in:Lunes,Martes,Miércoles,Jueves,Viernes,Sábado,Domingo',
-            'schedules.*.start_time' => 'required|date_format:H:i',
-            'schedules.*.end_time' => 'required|date_format:H:i|after:schedules.*.start_time'
+            'schedules.*.start_time' => 'required|date_format:H:i:s',
+            'schedules.*.end_time' => 'required|date_format:H:i:s|after:schedules.*.start_time'
         ]);
 
         if ($validator->fails()) {
@@ -143,14 +142,13 @@ class WorkshopController extends Controller
             'name' => 'required|string|max:255',
             'monthly_cost' => 'required|numeric',
             'age_range' => 'required|string|max:50',
-            'class_days' => 'required|string',
             'instructor_id' => 'required|exists:instructors,id',
             'location_id' => 'required|exists:locations,id',
             'category_id' => 'required|exists:categories,id',
             'schedules' => 'nullable|array',
             'schedules.*.day_of_week' => 'required_with:schedules|string|in:Lunes,Martes,Miércoles,Jueves,Viernes,Sábado,Domingo',
-            'schedules.*.start_time' => 'required_with:schedules|date_format:H:i',
-            'schedules.*.end_time' => 'required_with:schedules|date_format:H:i|after:schedules.*.start_time'
+            'schedules.*.start_time' => 'required_with:schedules|date_format:H:i:s',
+            'schedules.*.end_time' => 'required_with:schedules|date_format:H:i:s|after:schedules.*.start_time'
         ]);
 
         if ($validator->fails()) {
