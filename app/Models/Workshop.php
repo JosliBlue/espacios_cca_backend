@@ -17,12 +17,25 @@ class Workshop extends Model
         'age_range',
         'instructor_id',
         'location_id',
-        'category_id'
+        'category_id',
+        'deleted'
     ];
 
     protected $casts = [
-        'monthly_cost' => 'float'
+        'monthly_cost' => 'float',
+        'deleted' => 'boolean'
     ];
+
+    // Atributos por defecto
+    protected $attributes = [
+        'deleted' => false
+    ];
+
+    // Scope para obtener solo talleres no eliminados
+    public function scopeNotDeleted($query)
+    {
+        return $query->where('deleted', false);
+    }
 
     // Instructor relationship
     public function instructor()

@@ -65,6 +65,7 @@ class ScheduleController extends Controller
 
             $schedules = WorkshopSchedule::join('workshops', 'workshop_schedules.workshop_id', '=', 'workshops.id')
                 ->where('workshops.location_id', $placeId)
+                ->where('workshops.deleted', false) // Solo considerar talleres no eliminados
                 ->where('workshop_schedules.day_of_week', $dayOfWeek)
                 ->select(
                     'workshops.id',
@@ -140,6 +141,7 @@ class ScheduleController extends Controller
         $dayOfWeek = $this->getDayInSpanish(Carbon::createFromFormat('Y-m-d', $date));
         $workshopQuery = WorkshopSchedule::join('workshops', 'workshop_schedules.workshop_id', '=', 'workshops.id')
             ->where('workshops.location_id', $placeId)
+            ->where('workshops.deleted', false) // Solo considerar talleres no eliminados
             ->where('workshop_schedules.day_of_week', $dayOfWeek);
 
         // Exclude specific workshop if provided

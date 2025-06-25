@@ -14,7 +14,7 @@ class WorkshopController extends Controller
     public function index(): JsonResponse
     {
         try {
-            $workshops = Workshop::with(['instructor', 'location', 'category', 'schedules'])->get();
+            $workshops = Workshop::notDeleted()->with(['instructor', 'location', 'category', 'schedules'])->get();
 
             return response()->json([
                 'status' => true,
@@ -113,7 +113,7 @@ class WorkshopController extends Controller
     public function show($id): JsonResponse
     {
         try {
-            $workshop = Workshop::with(['instructor', 'location', 'category', 'schedules'])->findOrFail($id);
+            $workshop = Workshop::notDeleted()->with(['instructor', 'location', 'category', 'schedules'])->findOrFail($id);
 
             return response()->json([
                 'status' => true,
@@ -159,7 +159,7 @@ class WorkshopController extends Controller
         }
 
         try {
-            $workshop = Workshop::findOrFail($id);
+            $workshop = Workshop::notDeleted()->findOrFail($id);
 
             DB::beginTransaction();
 
@@ -194,6 +194,7 @@ class WorkshopController extends Controller
 
             // Update workshop data
             $workshopData = $request->except('schedules');
+            $workshopData['deleted'] = false; // Asegurar que el campo deleted se mantenga en false
             $workshop->update($workshopData);
 
             DB::commit();
@@ -216,8 +217,8 @@ class WorkshopController extends Controller
     public function destroy($id): JsonResponse
     {
         try {
-            $workshop = Workshop::findOrFail($id);
-            $workshop->delete();
+            $workshop = Workshop::notDeleted()->findOrFail($id);
+            $workshop->update(['deleted' => true]);
 
             return response()->json([
                 'status' => true,
@@ -227,6 +228,63 @@ class WorkshopController extends Controller
             return response()->json([
                 'status' => false,
                 'message' => 'Error deleting workshop',
+                'error' => $e->getMessage()
+            ], 500);
+        }
+    }
+
+    /**
+     * Restore a soft-deleted workshop
+     */
+    public function restore($id): JsonResponse
+    {
+        try {
+            $workshop = Workshop::where('deleted', true)->findOrFail($id);
+            $workshop->update(['deleted' => false]);
+
+            return response()->json([
+                'status' => true,
+                'message' => 'Workshop restored successfully',
+                'workshop' => $workshop->load(['instructor', 'location', 'category', 'schedules'])
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'status' => false,
+                'message' => 'Error restoring workshop',
+                'error' => $e->getMessage()
+            ], 500);
+        }
+    }
+
+    /**
+     * Get all deleted workshops
+     */
+    public function deleted(): JsonResponse
+    {
+        try {
+            $workshops = Workshop::where('deleted', true)
+                ->with(['instructor', 'location', 'category', 'schedules'])
+                ->get();
+
+            return response()->json([
+                'status' => true,
+                'workshops' => $workshops->map(function ($workshop) {
+                    return [
+                        'id' => $workshop->id,
+                        'name' => $workshop->name,
+                        'monthly_cost' => $workshop->monthly_cost,
+                        'age_range' => $workshop->age_range,
+                        'instructor' => $workshop->instructor,
+                        'location' => $workshop->location,
+                        'category' => $workshop->category,
+                        'workshop_schedules' => $workshop->schedules
+                    ];
+                })
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'status' => false,
+                'message' => 'Error getting deleted workshops',
                 'error' => $e->getMessage()
             ], 500);
         }
@@ -252,7 +310,7 @@ class WorkshopController extends Controller
         }
 
         try {
-            $workshop = Workshop::findOrFail($id);
+            $workshop = Workshop::notDeleted()->findOrFail($id);
 
             DB::beginTransaction();
 
@@ -309,6 +367,7 @@ class WorkshopController extends Controller
         // Check existing workshop schedules
         $query = WorkshopSchedule::join('workshops', 'workshop_schedules.workshop_id', '=', 'workshops.id')
             ->where('workshops.location_id', $locationId)
+            ->where('workshops.deleted', false) // Solo considerar talleres no eliminados
             ->where('workshop_schedules.day_of_week', $dayOfWeek);
 
         if ($excludeWorkshopId) {
@@ -345,7 +404,7 @@ class WorkshopController extends Controller
         }
 
         try {
-            $workshops = Workshop::with(['instructor', 'location', 'category'])
+            $workshops = Workshop::notDeleted()->with(['instructor', 'location', 'category'])
                 ->where('name', 'like', '%'.$request->term.'%')
                 ->orWhere('age_range', 'like', '%'.$request->term.'%')
                 ->orWhere('class_days', 'like', '%'.$request->term.'%')

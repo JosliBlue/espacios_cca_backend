@@ -59,6 +59,8 @@ Route::middleware([IsUserAuth::class])->group(function () {
         Route::delete('/{id}', [WorkshopController::class, 'destroy']);
         Route::post('/search', [WorkshopController::class, 'search']);
         Route::put('/{id}/schedules', [WorkshopController::class, 'updateSchedules']);
+        Route::get('/deleted/list', [WorkshopController::class, 'deleted']);
+        Route::put('/{id}/restore', [WorkshopController::class, 'restore']);
     });
 
     // Event Posts
