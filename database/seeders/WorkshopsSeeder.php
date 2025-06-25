@@ -14,9 +14,9 @@ class WorkshopsSeeder extends Seeder
     {
         // Seed categories
         $categories = [
-            ['name' => 'Danza y teatro'],
-            ['name' => 'Musica'],
-            ['name' => 'Educacion, arte y tecnologia'],
+            ['name' => 'Danza y Teatro'],
+            ['name' => 'Música'],
+            ['name' => 'Educación, Arte y Tecnología'],
         ];
 
         foreach ($categories as $category) {
